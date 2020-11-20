@@ -6,9 +6,9 @@ import Router from './router'
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <div>
+  <React.StrictMode>
     <Router />
-  </div>,
+  </React.StrictMode>,
 
   document.getElementById('root')
 );
