@@ -1,59 +1,71 @@
-import React, { FC, useState, useEffect, useRef, useCallback, MutableRefObject } from 'react'
+import React, { FC, useState, useEffect, useRef, useCallback, MutableRefObject,useReducer } from 'react'
+import Input from '../../components/Input/index'
 
+function useDebounce(fn: any, delay: number, dep = []) {
+    const { current }: MutableRefObject<{ fn: any; timer: null | number; }> = useRef({ fn, timer: null });
+    useEffect(function () {
+        current.fn = fn;
+    }, [fn]);
 
-
-// function useDebounce(fn: any, delay: number, dep = []) {
-//     // const  current= useRef(null);
-//     type timeID = number | null
-//     let timeID: timeID = null
-//     type MutableRefObject =   { fn: any; timer: null; }
-    
-//     let current = useRef({ fn, timer: null });
-//     useEffect(function () {
-//         if (current && current.fn) {
-//             current.fn = fn;
-//         }
-//     }, [fn]);
-//     return useCallback(function f(...args) {
-//         if (current.timer) {
-//             clearTimeout(current.timer);
-//         }
-//         current.timer = 12
-//         //   current.timer = window.setTimeout(() => {
-
-//         //     // current.fn(...args);
-//         //   }, delay);
-//     }, dep)
-// }
-
+    return useCallback(function f(...args) {
+        if (current.timer) {
+            clearTimeout(current.timer);
+        }
+        current.timer = window.setTimeout(() => {
+            current.fn(...args);
+        }, delay);
+    }, dep)
+}
 
 type Home = {
 
 }
-// debounce(() => { }, 1000)(1, 2, 3, 4)
+
 const Home: FC<Home> = (props) => {
 
-    // const [counter, setCounter] = useState(1)
-    // const [counter2, setCounter2] = useState(0);
+    const [counter, setCounter] = useState(1)
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [counter2, setCounter2] = useState(0);
+    const usernameRef = useRef(null)
 
-    // useEffect(function () {
-    //     const t = setInterval(() => {
-    //         setCounter2(x => x + 1)
+    useEffect(function () {
+        const t = setInterval(() => {
+            setCounter2(x => x + 1)
 
-    //     }, 1000);
-    //     return () => clearInterval(t)
-    // }, [])
-
-    // const handleClick = useDebounce(function () {
-    //     setCounter((counter) => counter + 1)
-    // }, 1000)
-
+        }, 1000);
+        return () => clearInterval(t)
+    }, [])
+    
+    const handleClick = useDebounce(function () {
+        setCounter((counter) => counter + 1)
+        submitSava()
+    }, 1000)
+    const submitSava = ()=>{
+        console.log(7,username)
+        console.log(7,password)
+    } 
+    const inputChange = (e,type)=>{
+        console.log(8,type)
+        type(e.target.value)
+        // setUsername(e.target.value)
+    }
+    const textChange = (e,type)=>{
+        console.log(8,type)
+        // type(e)
+        // setUsername(e.target.value)
+    }
     return (
         <div>
             <h1>test</h1>
-            {/* <h1>home{counter}</h1>
+            <h1>home{counter}</h1>
             <h1>home{counter2}</h1>
-            <button onClick={handleClick} >save</button> */}
+            <Input  value={username} change={setUsername} />
+            {/* <Input ><Input/> */}
+            {/* <input type='text' value={username} onChange={(e)=>{inputChange(e,'setUsername')}} />
+            <input type='text' value={password} /> */}
+            <button onClick={submitSava} >save</button>
+            {/* <button onClick={handleClick} >防抖save</button> */}
         </div>
     )
 
