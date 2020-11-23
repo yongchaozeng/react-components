@@ -1,21 +1,25 @@
 import React, { FC, useState, useEffect, useRef, useCallback, MutableRefObject, useReducer } from 'react'
 import './index.less'
+var classNames = require('classnames');
 
 type Input = {
     value: string
-    change:(e: string,) => void
+    change: (e: string,) => void
+    type?:string
 }
 
 const Input: FC<Input> = (props) => {
-    let { value,change } = props
-   
+    let { value, change, children ,type = 'text'} = props
     const inputChange = (e) => {
         change(e.target.value)
     }
-
+    
     return (
-        <div className='input-container'>
-            <input type="text" value={value} onChange={(e) => { inputChange(e) }} />
+        <div className={classNames(['input-container',{'input-icon':children}])}  >
+            <div className='children-box'>
+                {children}
+            </div>
+            <input type={type} className={classNames({'input':children})}  value={value} onChange={(e) => { inputChange(e) }} />
         </div>
     )
 

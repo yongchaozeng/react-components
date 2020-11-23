@@ -1,4 +1,4 @@
-const { override, addWebpackAlias, addDecoratorsLegacy, addLessLoader } = require('customize-cra');
+const { override, addWebpackAlias, addDecoratorsLegacy, addLessLoader, addWebpackModuleRule } = require('customize-cra');
 const path = require('path')
 // const rewireLess = require('react-app-rewire-less');
 
@@ -31,5 +31,19 @@ module.exports = override(
         // "components": path.resolve(__dirname, 'src/components'),
     }),
     addDecoratorsLegacy(),
-    addLessLoader()
+    addLessLoader(),
+    addWebpackModuleRule({
+        test: /\.svg$/, use: [
+            { loader: 'svg-sprite-loader', options: {} },
+            {
+                loader: 'svgo-loader', options: {
+                    plugins: [
+                        // { removeNonInheritableGroupAttrs: true },
+                        // { collapseGroups: true },
+                        // { removeAttrs: { attrs: '(fill|stroke)' } },
+                    ],
+                }
+            },
+        ]
+    })
 )
