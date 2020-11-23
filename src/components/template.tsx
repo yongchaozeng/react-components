@@ -1,22 +1,24 @@
 import React, { FC, useState, useEffect, useRef, useCallback, MutableRefObject, useReducer } from 'react'
-import './index.less'
 
 type Input = {
     value: string
-    change:(e: string,) => void
+    change: (string) => {}
 }
 
-const Input: FC<Input> = (props) => {
+const Home: FC<Input> = (props) => {
     let { value,change } = props
-   
+    const [counter, setCounter] = useState(1)
     const inputChange = (e) => {
         change(e.target.value)
     }
 
     return (
-        <div className='input-container'>
+        // <div>
+
+        // </div>
+        <>
             <input type="text" value={value} onChange={(e) => { inputChange(e) }} />
-        </div>
+        </>
     )
 
 }

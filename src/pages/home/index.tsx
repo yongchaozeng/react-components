@@ -1,5 +1,7 @@
 import React, { FC, useState, useEffect, useRef, useCallback, MutableRefObject,useReducer } from 'react'
 import Input from '../../components/Input/index'
+import './index.less'
+import   '../../imgs/user.svg'
 
 function useDebounce(fn: any, delay: number, dep = []) {
     const { current }: MutableRefObject<{ fn: any; timer: null | number; }> = useRef({ fn, timer: null });
@@ -56,12 +58,22 @@ const Home: FC<Home> = (props) => {
         // setUsername(e.target.value)
     }
     return (
-        <div>
-            <h1>test</h1>
-            <h1>home{counter}</h1>
-            <h1>home{counter2}</h1>
-            <Input  value={username} change={setUsername} />
-            {/* <Input ><Input/> */}
+        <div className='login-container' >
+            <div className='login-con '>
+                <div className='yc-card'>
+                    <div className='yc-card-head'>
+                        <p className='yc-card-title'>
+                            欢迎登录
+                            <svg><use xlinkHref="#user"></use></svg>
+                        </p>
+                    </div>
+                    <div className='yc-main'>
+                    <Input  value={username} change={setUsername} />
+               
+                    </div>
+                    
+                </div>
+            </div>
             {/* <input type='text' value={username} onChange={(e)=>{inputChange(e,'setUsername')}} />
             <input type='text' value={password} /> */}
             <button onClick={submitSava} >save</button>
