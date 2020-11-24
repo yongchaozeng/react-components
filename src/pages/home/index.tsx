@@ -4,7 +4,10 @@ import Input from '../../components/Input'
 import Icon from 'components/Icon'
 import  Avatar from 'components/Avatar'
 import  YcSelect from 'components/yc-select'
+import  Menu from 'components/Menu'
 import './index.less'
+
+var classNames = require('classnames');
 
 type Home = {
 
@@ -30,6 +33,7 @@ const Home: FC<Home> = (props) => {
 
     return (
         <div className='home-container' >
+            <Menu />
             <div className='header-container' >
                 <div className='header-left'>xx</div>
                 <div className='header-right'>
@@ -40,12 +44,7 @@ const Home: FC<Home> = (props) => {
                     </div>
                     <div>
                         <YcSelect />
-                        {/* <input type="text" value='123'/> */}
-                        {/* <ul>
-                            <li>1</li>
-                            <li>2</li>
-                            <li>3</li>
-                        </ul> */}
+                    
                     </div>
                 </div>
             </div>

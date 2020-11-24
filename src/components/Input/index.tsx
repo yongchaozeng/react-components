@@ -5,7 +5,7 @@ var classNames = require('classnames');
 type Input = {
     value: string
     change: (e: string) => void
-    type?:string
+    type?:string    
 }
 
 const Input: FC<Input> = (props) => {
