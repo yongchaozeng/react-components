@@ -1,16 +1,16 @@
-import React, { FC, useState, useEffect, useRef, useCallback, MutableRefObject, useReducer } from 'react'
+import React, { FC, useState, useEffect, useRef, useCallback, MutableRefObject, useReducer, MouseEventHandler } from 'react'
 import './index.less'
 var classNames = require('classnames');
 
 type Input = {
     value: string
-    change: (e: string,) => void
+    change: (e: string) => void
     type?:string
 }
 
 const Input: FC<Input> = (props) => {
     let { value, change, children ,type = 'text'} = props
-    const inputChange = (e) => {
+    const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         change(e.target.value)
     }
     

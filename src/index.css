@@ -21,3 +21,6 @@ article, aside, blockquote, body, button, dd, details, div, dl, dt, fieldset, fi
   padding: 0;
   box-sizing: border-box;
 }
+li{
+  list-style-type: none;
+}
