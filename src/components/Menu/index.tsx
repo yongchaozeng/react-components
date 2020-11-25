@@ -5,24 +5,17 @@ type Menu = {
 }
 
 const Menu: FC<Menu> = (props) => {
-    let { src } = props
+    let { src, children } = props
+    let a = {
 
+    }
 
     return (
-      
-            <ul className='menu-container'>
-                <li className='menu-item' >1
-                    {/* <ul className={classNames([{'menu-item':true}])}>
-                        <li>1-1</li>
-                        <li>1-2</li>
-                        <li>1-3</li>
-                        <li>1-4</li>
-                    </ul> */}
-                </li>
-                <li>2</li>
-                <li>2</li>
-            </ul>
-        
+
+        <ul className='menu-container'>
+            {children}
+        </ul>
+
     )
 
 }

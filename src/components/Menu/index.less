@@ -1,6 +1,6 @@
 .menu-container{
     display: block;
-    width: 500px;
+    height: 100%;
     margin: 0;
     padding: 0;
     outline: none;
@@ -9,10 +9,33 @@
     font-size: 14px;
     position: relative;
     z-index: 900;
-    color: #fff;
-    background: red;
+    // color: #fff;
+    color: hsla(0,0%,100%,.7);;
+    background-color: #001529;
+    // background: red;
+    box-shadow: 0 3px 6px -4px rgba(0,0,0,.12);
 }
 .menu-item {
+    display: block;
+    outline: none;
+    list-style: none;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    font-size: 14px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    // border-bottom: 1px solid #ccc;
+    &:hover{
+        color: #1890ff;
+        background-color: #e6f7ff;
+    }
+
+}
+.menu-sub-item {
     display: block;
     outline: none;
     list-style: none;
@@ -22,4 +45,6 @@
     cursor: pointer;
     -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
+   
+
 }
