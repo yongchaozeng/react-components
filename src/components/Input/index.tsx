@@ -6,10 +6,11 @@ type Input = {
     value: string
     change: (e: string) => void
     type?:string    
+    placeholder?:string    
 }
 
 const Input: FC<Input> = (props) => {
-    let { value, change, children ,type = 'text'} = props
+    let { value, change, children ,type = 'text',placeholder='请输入'} = props
     const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         change(e.target.value)
     }
@@ -19,7 +20,7 @@ const Input: FC<Input> = (props) => {
             <div className='children-box'>
                 {children}
             </div>
-            <input type={type} className={classNames({'input':children})}  value={value} onChange={(e) => { inputChange(e) }} />
+            <input placeholder={placeholder} type={type} className={classNames({'input':children})}  value={value} onChange={(e) => { inputChange(e) }} />
         </div>
     )
 
