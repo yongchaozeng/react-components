@@ -9,7 +9,7 @@ type Icon = {
 }
 
 const Icon: FC<Icon> = (props) => {
-    let { name,size,style } = props
+    let { name,size=30,style } = props
 
     require(`../../imgs/${name}.svg`)
 

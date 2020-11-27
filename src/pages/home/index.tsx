@@ -5,6 +5,7 @@ import Input from '../../components/Input'
 import Icon from 'components/Icon'
 import Avatar from 'components/Avatar'
 import YcSelect from 'components/yc-select'
+import YcOption from 'components/yc-select/yc-option'
 import Menu from 'components/Menu'
 import MenuItem from 'components/Menu/item'
 import MenuSubItem from 'components/Menu/SubItem'
@@ -37,8 +38,12 @@ const Home: FC<Home> = (props) => {
         history.push('/home/app')
     }
     const toTest = (e: React.MouseEvent) => {
-        console.log(11, e.target)   
+        console.log(11, e.target)
         history.push('/home/test')
+    }
+    const toLogin = (e: React.MouseEvent) => {
+        console.log(11, e.target)
+        history.push('/login')
     }
 
     return (
@@ -56,15 +61,20 @@ const Home: FC<Home> = (props) => {
             </div>
             <div className='home-right'>
                 <div className='header-container' >
-                    <div className='header-left'>xx</div>
+                    <div className='header-left' onClick={toLogin}  >
+                        <Icon name={'login-icon'} />
+                    </div>
                     <div className='header-right'>
-                        <div className='language-select' >语言</div>
+                        <YcSelect >
+                             <YcOption>1</YcOption>
+                        </YcSelect>
+
+                        {/* <div className='language-select' >语言</div> */}
                         <div className='user-box' >
                             <Avatar src={require('../../imgs/login-bg.jpg')} />
                             <p>张三</p>
                         </div>
                         <div>
-                            <YcSelect />
                         </div>
                     </div>
                 </div>
