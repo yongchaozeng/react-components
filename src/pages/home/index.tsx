@@ -37,7 +37,7 @@ const Home: FC<Home> = (props) => {
         history.push('/home/app')
     }
     const toTest = (e: React.MouseEvent) => {
-        console.log(11, e.target)
+        console.log(11, e.target)   
         history.push('/home/test')
     }
 

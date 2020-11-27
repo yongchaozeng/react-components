@@ -10,8 +10,11 @@ const MenuSubItem: FC<MenuSubItem> = (props) => {
     return (
         <li className='menu-sub-item' >
             
-            <MenuItem >{title}</MenuItem>
-            <ul>
+            {/* <MenuItem >{title}</MenuItem> */}
+            <div className='menu-item'>
+                {title}
+            </div>
+            <ul className='menu-children'>
                 {children}
             </ul>
 
