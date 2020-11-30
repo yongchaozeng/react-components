@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect, useRef, } from 'react'
 import { useHistory, withRouter } from "react-router-dom";
 // import Login from '../../pages/login'
 // import Input from '../../components/Input'
-// import { useTitle } from 'ahooks';
+// import { useToggle } from 'ahooks';
 import Icon from 'components/Icon'
 import Avatar from 'components/Avatar'
 import YcSelect from 'components/yc-select'
@@ -10,8 +10,11 @@ import YcOption from 'components/yc-select/yc-option'
 import Menu from 'components/Menu'
 import MenuItem from 'components/Menu/item'
 import MenuSubItem from 'components/Menu/SubItem'
+import { useTitle ,useToggle} from '@/hooks';
+
 import './index.less'
 
+console.log(1,void 0 === null)
 
 type Home = {
 
@@ -23,51 +26,35 @@ var DEFAULT_OPTIONS = {
   restoreOnUnmount: false
 };
 
-function useTitle(title:any, options:any) {
-  if (options === void 0) {
-    options = DEFAULT_OPTIONS;
-  }
-  var titleRef = react_1.useRef(document.title);
-  react_1.useEffect(function () {
-    document.title = title;
-    console.log(13,titleRef);
 
-  }, [title]);
-  
-
-//   console.log(71,titleRef)
-  react_1.useEffect(function () {
-    if (options && options.restoreOnUnmount) {
-      return function () {
-        document.title = titleRef.current;
-      };
-    }
-  }, []);
-}
 
 const Home: FC<Home> = (props) => {
-    // useTitle('hga')
-    useTitle('hga777',{restoreOnUnmount:true})
-
+    useTitle('Home')
     let { children } = props
+      
+    // console.log(5,)
+    console.log(6,useState(2))
+    
     // const [counter, setCounter] = useState(1)
     // const [username, setUsername] = useState('');
     // const [password, setPassword] = useState('');
     const [counter2, setCounter2] = useState(0);
+    // const [show,{toggle}] = useToggle()
     // const usernameRef = useRef(null)
+    useToggle()
     let history = useHistory();
 
     useEffect(function () {
-        const t = setInterval(() => {
-            setCounter2(x => x + 1)
-        }, 300);
-        return () => clearInterval(t)
+        // const t = setInterval(() => {
+        //     setCounter2(x => x + 1)
+        // }, 300);
+        // return () => clearInterval(t)
     }, [])
 
     const toApp = (e: React.MouseEvent) => {
         console.log(11, e.target)
-        history.push('/home/app')
-        
+        // history.push('/home/app')
+        // toggle()
     }
     const toTest = (e: React.MouseEvent) => {
         console.log(11, e.target)
@@ -82,7 +69,6 @@ const Home: FC<Home> = (props) => {
         <div className='home-container' >
 
             <div className='home-sider'>
-                {/* <h1>{{counter2}}</h1> */}
                 <Menu >
                     <MenuSubItem title='1'>
                         <MenuItem onClick={toApp} >app</MenuItem>
@@ -93,6 +79,7 @@ const Home: FC<Home> = (props) => {
                 </Menu>
             </div>
             <div className='home-right'>
+                
                 <div className='header-container' >
                     <div className='header-left' onClick={toLogin}  >
                         <Icon name={'login-icon'} />

@@ -1,10 +1,12 @@
 import React from 'react';
+import { useTitle } from 'ahooks';
+
 import logo from '../../logo.svg';
 import './App.css';
 
-document.title='app'
 
 function App() {
+  useTitle('app',{restoreOnUnmount:true})
   return (
     <div className="App">
       <header className="App-header">
