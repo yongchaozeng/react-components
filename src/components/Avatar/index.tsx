@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef, useCallback, MutableRefObject, useReducer } from 'react'
+import React, { FC, } from 'react'
 import './index.less'
 type Avatar = {
     src: string

@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef, useCallback, MutableRefObject, useReducer } from 'react'
+import React, { FC, useState, useRef,  } from 'react'
 import { useClickAway } from 'ahooks';
 import YcOption from './yc-option';
 import './index.less'

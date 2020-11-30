@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Login from '../pages/login'
 import App from '../pages/App'
 import Test from '../pages/test'
 import Home from '../pages/home'
-import RouterLayout from 'components/RouterLayout'
 // import Test from '@/page/test'
 
 const Router: React.FC = () => {

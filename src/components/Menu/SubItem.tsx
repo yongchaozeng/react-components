@@ -1,5 +1,4 @@
-import React, { FC, useState, useEffect, useRef, useCallback, MutableRefObject, useReducer } from 'react'
-import MenuItem from './item'
+import React, { FC, } from 'react'
 import './index.less'
 type MenuSubItem = {
     title: string,
