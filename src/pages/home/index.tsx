@@ -10,11 +10,11 @@ import YcOption from 'components/yc-select/yc-option'
 import Menu from 'components/Menu'
 import MenuItem from 'components/Menu/item'
 import MenuSubItem from 'components/Menu/SubItem'
-import { useTitle ,useToggle} from '@/hooks';
+import { useTitle, useToggle } from '@/hooks';
 
 import './index.less'
 
-console.log(1,void 0 === null)
+console.log(1, void 0 === null)
 
 type Home = {
 
@@ -23,7 +23,7 @@ type Home = {
 var react_1 = require("react");
 
 var DEFAULT_OPTIONS = {
-  restoreOnUnmount: false
+    restoreOnUnmount: false
 };
 
 
@@ -31,10 +31,10 @@ var DEFAULT_OPTIONS = {
 const Home: FC<Home> = (props) => {
     useTitle('Home')
     let { children } = props
-      
+
     // console.log(5,)
-    console.log(6,useState(2))
-    
+    console.log(6, useState(2))
+
     // const [counter, setCounter] = useState(1)
     // const [username, setUsername] = useState('');
     // const [password, setPassword] = useState('');
@@ -67,7 +67,7 @@ const Home: FC<Home> = (props) => {
 
     return (
         <div className='home-container' >
-
+           
             <div className='home-sider'>
                 <Menu >
                     <MenuSubItem title='1'>
@@ -79,14 +79,14 @@ const Home: FC<Home> = (props) => {
                 </Menu>
             </div>
             <div className='home-right'>
-                
+
                 <div className='header-container' >
                     <div className='header-left' onClick={toLogin}  >
                         <Icon name={'login-icon'} />
                     </div>
                     <div className='header-right'>
                         <YcSelect >
-                             <YcOption>1</YcOption>
+                            <YcOption>1</YcOption>
                         </YcSelect>
 
                         {/* <div className='language-select' >语言</div> */}
