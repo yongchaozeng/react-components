@@ -1,5 +1,7 @@
 import React, { FC, useState, useEffect, useRef, } from 'react'
 import { useHistory, withRouter } from "react-router-dom";
+import {  useToggle } from '@/hooks/index'; 
+
 // import Login from '../../pages/login'
 // import Input from '../../components/Input'
 // import { useToggle } from 'ahooks';
@@ -10,58 +12,42 @@ import YcOption from 'components/yc-select/yc-option'
 import Menu from 'components/Menu'
 import MenuItem from 'components/Menu/item'
 import MenuSubItem from 'components/Menu/SubItem'
-import { useTitle ,useToggle} from '@/hooks';
-
 import './index.less'
 
-console.log(1,void 0 === null)
 
 type Home = {
 
 }
-
-var react_1 = require("react");
-
-var DEFAULT_OPTIONS = {
-  restoreOnUnmount: false
-};
-
+const a = {
+    name:'123',
+    age:12,
+    ha:'asd'
+}
+const {name,...x} = a
 
 
 const Home: FC<Home> = (props) => {
-    useTitle('Home')
     let { children } = props
-      
-    // console.log(5,)
-    console.log(6,useState(2))
-    
-    // const [counter, setCounter] = useState(1)
-    // const [username, setUsername] = useState('');
-    // const [password, setPassword] = useState('');
-    const [counter2, setCounter2] = useState(0);
-    // const [show,{toggle}] = useToggle()
-    // const usernameRef = useRef(null)
-    useToggle()
     let history = useHistory();
-
+    const [state, { toggle }] = useToggle();
     useEffect(function () {
-        // const t = setInterval(() => {
-        //     setCounter2(x => x + 1)
-        // }, 300);
-        // return () => clearInterval(t)
     }, [])
 
-    const toApp = (e: React.MouseEvent) => {
-        console.log(11, e.target)
+    const toApp = (e: React.MouseEvent,type:string) => {
+        console.log(11, e.target,type)
+        toggle()
         // history.push('/home/app')
-        // toggle()
+    }
+    const haha = (e: React.MouseEvent) => {
+
+    }
+    const xx = (e: React.MouseEvent) => {
+        history.push('/home/app')
     }
     const toTest = (e: React.MouseEvent) => {
-        console.log(11, e.target)
         history.push('/home/test')
     }
     const toLogin = (e: React.MouseEvent) => {
-        console.log(11, e.target)
         history.push('/login')
     }
 
@@ -69,24 +55,27 @@ const Home: FC<Home> = (props) => {
         <div className='home-container' >
 
             <div className='home-sider'>
+                <h1>{`${state}`}</h1>
                 <Menu >
                     <MenuSubItem title='1'>
-                        <MenuItem onClick={toApp} >app</MenuItem>
+                        <MenuItem onClick={(e)=>{toApp(e,'te')}} >app</MenuItem>
                         <MenuItem onClick={toTest}>test</MenuItem>
+                        <MenuItem onClick={(e) => { haha(e) }}>haha</MenuItem>
+                        <MenuItem onClick={(e) => { xx(e) }}>c2</MenuItem>
                     </MenuSubItem>
                     <MenuItem>2</MenuItem>
                     <MenuItem>3</MenuItem>
                 </Menu>
             </div>
             <div className='home-right'>
-                
+
                 <div className='header-container' >
                     <div className='header-left' onClick={toLogin}  >
                         <Icon name={'login-icon'} />
                     </div>
                     <div className='header-right'>
                         <YcSelect >
-                             <YcOption>1</YcOption>
+                            <YcOption>1</YcOption>
                         </YcSelect>
 
                         {/* <div className='language-select' >语言</div> */}

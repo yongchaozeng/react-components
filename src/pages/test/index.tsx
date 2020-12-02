@@ -1,16 +1,28 @@
 import React from 'react';
-import { useTitle } from 'ahooks';
-import logo from '../../logo.svg';
+import { useTitle, useRequest } from 'ahooks';
 import './App.css';
 
-console.log(71)
 
+function getUsername(): Promise<string> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('sdsds');
+    }, 1000);
+  });
+}
 function Test() {
-  useTitle('test',{restoreOnUnmount:true})
+  useTitle('test', { restoreOnUnmount: true })
 
-  return (
-    <h1>test</h1>
-  );
+
+  const { data, error, loading } = useRequest('/api/userInfo');
+  if (error) {
+    return <div>failed to load</div>;
+  }
+  if (loading) {
+    return <div>loading...</div>;
+  }
+  return <div>Username: {data}</div>;
+
 }
 
 export default Test;
