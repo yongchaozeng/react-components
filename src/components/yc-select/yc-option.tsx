@@ -1,30 +1,20 @@
-import React, { FC,  } from 'react'
+import React, { FC, } from 'react'
 import { useClickAway } from 'ahooks';
 import './index.less'
+type params = {
+    selectItem: any
+}
 type YcOption = {
-   
+    value?:string|number|null|undefined
+    params?:params
 }
 
 const YcOption: FC<YcOption> = (props) => {
-    let { children,  } = props
-    // const [selectShow, setSelectShow] = useState(false)
+    let { children,params} = props
+    let selectItem = (params as params).selectItem
 
-    // const openSelect = () => {
-
-    //     setSelectShow(true)
-    // }
-    // const ref = useRef<HTMLInputElement>(null);
-    // useClickAway(() => {
-    //     setSelectShow(false);
-    // }, ref);
-
-
-    // const selectItem = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-    //     e.stopPropagation();
-    //     // setSelectShow(false);
-    // }
     return (
-        <li  className='select-item' >{children}</li>
+        <li className='select-item' onClick={(e) => { selectItem(e) }}  >{children}</li>
 
     )
 

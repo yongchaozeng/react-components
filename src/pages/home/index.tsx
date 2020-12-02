@@ -1,10 +1,7 @@
 import React, { FC, useState, useEffect, useRef, } from 'react'
 import { useHistory, withRouter } from "react-router-dom";
-import {  useToggle } from '@/hooks/index'; 
-
-// import Login from '../../pages/login'
-// import Input from '../../components/Input'
-// import { useToggle } from 'ahooks';
+// import { useSize } from 'ahooks'
+import { useTitle, useToggle,useSize } from '@/hooks';
 import Icon from 'components/Icon'
 import Avatar from 'components/Avatar'
 import YcSelect from 'components/yc-select'
@@ -12,34 +9,27 @@ import YcOption from 'components/yc-select/yc-option'
 import Menu from 'components/Menu'
 import MenuItem from 'components/Menu/item'
 import MenuSubItem from 'components/Menu/SubItem'
-import { useTitle, useToggle } from '@/hooks';
 
 import './index.less'
 
-console.log(1, void 0 === null)
 
 type Home = {
 
 }
-const a = {
-    name:'123',
-    age:12,
-    ha:'asd'
-}
-const {name,...x} = a
 
 
 const Home: FC<Home> = (props) => {
     let { children } = props
     let history = useHistory();
     const [state, { toggle }] = useToggle();
-    useEffect(function () {
-    }, [])
 
-    const toApp = (e: React.MouseEvent,type:string) => {
-        console.log(11, e.target,type)
+    const sizeRef = useRef(null)
+    const size = useSize(sizeRef)
+
+
+    const toApp = (e: React.MouseEvent, type: string) => {
+        console.log(11, e.target, type)
         toggle()
-        // history.push('/home/app')
     }
     const haha = (e: React.MouseEvent) => {
 
@@ -53,21 +43,23 @@ const Home: FC<Home> = (props) => {
     const toLogin = (e: React.MouseEvent) => {
         history.push('/login')
     }
+    const changeLanguer = () => {
+
+    }
 
     return (
         <div className='home-container' >
-           
+
             <div className='home-sider'>
-                <h1>{`${state}`}</h1>
                 <Menu >
-                    <MenuSubItem title='1'>
-                        <MenuItem onClick={(e)=>{toApp(e,'te')}} >app</MenuItem>
-                        <MenuItem onClick={toTest}>test</MenuItem>
-                        <MenuItem onClick={(e) => { haha(e) }}>haha</MenuItem>
-                        <MenuItem onClick={(e) => { xx(e) }}>c2</MenuItem>
+                    <MenuSubItem title='组件'>
+                        <MenuItem onClick={(e) => { toApp(e, 'te') }} >图片裁剪</MenuItem>
+                        <MenuItem onClick={toTest}>文件上传</MenuItem>
+                        <MenuItem onClick={(e) => { haha(e) }}>i18N</MenuItem>
+                        <MenuItem onClick={(e) => { xx(e) }}>Excel</MenuItem>
                     </MenuSubItem>
-                    <MenuItem>2</MenuItem>
-                    <MenuItem>3</MenuItem>
+                    <MenuItem>错误信息</MenuItem>
+                    <MenuItem>通知信息</MenuItem>
                 </Menu>
             </div>
             <div className='home-right'>
@@ -77,14 +69,19 @@ const Home: FC<Home> = (props) => {
                         <Icon name={'login-icon'} />
                     </div>
                     <div className='header-right'>
-                        <YcSelect >
-                            <YcOption>1</YcOption>
+                        <div ref={sizeRef}>
+                            try to resize the preview window <br />
+                            dimensions -- width: {size.width} px, height: {size.height} px
+                        </div>
+                        <YcSelect onChange={() => { changeLanguer() }} defaultVlaue='zh' className={'languer-select'}   >
+                            <YcOption value='zh'>中文</YcOption>
+                            <YcOption value='en' >EN</YcOption>
                         </YcSelect>
 
                         {/* <div className='language-select' >语言</div> */}
                         <div className='user-box' >
                             <Avatar src={require('../../imgs/login-bg.jpg')} />
-                            <p>张三</p>
+                            <p className='user-title'>张三</p>
                         </div>
                         <div>
                         </div>

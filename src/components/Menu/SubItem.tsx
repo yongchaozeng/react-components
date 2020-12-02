@@ -4,7 +4,7 @@ import { Motion, spring } from 'react-motion';
 
 import './index.less'
 type MenuSubItem = {
-    title: string,
+    title: string
 }
 
 
@@ -13,21 +13,23 @@ const MenuSubItem: FC<MenuSubItem> = (props) => {
     let { children, title } = props
     const [show, { toggle }] = useToggle()
     const [num, setNum] = useState(0)
-    const [opacity, setOpacity] = useState(0)
     const changeMenu = () => {
-        if (num === 80) {
+        let length = (children as React.ReactChildren[]).length
+        let dom: HTMLLIElement | null = document.querySelector('.menu-item')
+        let height = (dom as HTMLLIElement).offsetHeight
+
+        if (num === (length) * height) {
             setNum(0)
-            setOpacity(0)
-            setTimeout(()=>{
+            setTimeout(() => {
                 toggle()
-            },300)
+            }, 30 * length)
 
         } else {
-            setNum(80)
-            setOpacity(1)
-                toggle()
+            setNum(length * height)
+            toggle()
 
         }
+
     }
     return (
         <li className='menu-sub-item' >
@@ -37,8 +39,8 @@ const MenuSubItem: FC<MenuSubItem> = (props) => {
                 {title}
             </div>
             {show &&
-                <Motion defaultStyle={{ x: 0 ,}} style={{ x: spring(num) }}>
-                    {value => <ul style={{ height: `${value.x}px`,opacity:opacity }} className='menu-children'>
+                <Motion defaultStyle={{ x: 0, }} style={{ x: spring(num), }}>
+                    {value => <ul style={{ height: `${value.x}px` }} className='menu-children'>
                         {children}
                     </ul>}
                 </Motion>

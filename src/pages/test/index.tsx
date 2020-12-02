@@ -14,7 +14,7 @@ function Test() {
   useTitle('test', { restoreOnUnmount: true })
 
 
-  const { data, error, loading } = useRequest('/api/userInfo');
+  const { data, error, loading } = useRequest(getUsername);
   if (error) {
     return <div>failed to load</div>;
   }
