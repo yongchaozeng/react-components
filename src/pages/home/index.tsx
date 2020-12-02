@@ -12,8 +12,11 @@ import YcOption from 'components/yc-select/yc-option'
 import Menu from 'components/Menu'
 import MenuItem from 'components/Menu/item'
 import MenuSubItem from 'components/Menu/SubItem'
+import { useTitle, useToggle } from '@/hooks';
+
 import './index.less'
 
+console.log(1, void 0 === null)
 
 type Home = {
 
@@ -53,7 +56,7 @@ const Home: FC<Home> = (props) => {
 
     return (
         <div className='home-container' >
-
+           
             <div className='home-sider'>
                 <h1>{`${state}`}</h1>
                 <Menu >
