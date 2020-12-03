@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect ,useEffect} from 'react'
+import { useState, useLayoutEffect, useEffect } from 'react'
 import ResizeObserver from 'resize-observer-polyfill';
 import { getTargetElement, BasicTarget } from './utils/dom';
 
@@ -7,14 +7,9 @@ type Size = {
     height: number | string
 }
 
-// function useSize(target: string, ) : Size {
-//     return {
-//         width: 1,
-//         height: 1,
-//     }
-// }
 
-const useSize = (target: any, ): Size => {
+
+const useSize = (target: any  ): Size => {
     const [state, setState] = useState(() => {
         const el = getTargetElement(target);
         return {
@@ -22,7 +17,6 @@ const useSize = (target: any, ): Size => {
             height: ((el || {}) as HTMLElement).clientHeight,
         };
     })
-    // console.log(7, state)
 
     useEffect(() => {
         const el = getTargetElement(target);
