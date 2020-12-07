@@ -1,6 +1,6 @@
 
 import { MutableRefObject } from 'react';
-
+import './tsDemo'
 
 
 
@@ -137,14 +137,39 @@ type Pick<T, K extends keyof T> = {
     [P in K]: T[P];
 }
 type ParsonT = {
-    name:string
-    age:number
+    name: string
+    age: number
 }
 
-type UserInfo = Pick<ParsonT,'name'>
-let concatObj = function (o1:T, o2:K) {
+type UserInfo = Pick<ParsonT, 'name'>
 
+//Exclude  从T找K中不存在的
+type DemoExclude<T, K> = T extends K ? never : T
+type Demo = DemoExclude<1 | 2, 1 | 3>
+let demo: Demo = 2
+
+//Extract  从T找K中存在的
+type ExtractLean<T, K> = T extends K ? T : never
+type DemoExtract = ExtractLean<1 | 2, 1 | 3>
+let demo2: DemoExtract = 1
+
+//Omit 去除未包含
+// {name:'只是',age:12} =>{age:12}
+type Omit<T, K> = DemoExclude<keyof T, K>
+
+type Foo = Omit<{ name: string, age: number }, 'name'>
+let Foo = {
+    num: 1
 }
+type Str = 'name' | 'age' | 'happy'
+
+
+// Partial
+
+
+
+
+
 
 
 
@@ -208,7 +233,7 @@ export type BasicTarget<T> =
 
 type TargetElement = HTMLElement | Element | Document | Window;
 
-const getTargetElement = (target?: BasicTarget<TargetElement>,): TargetElement | undefined | null => {
+const getTargetElement = (target?: BasicTarget<TargetElement>, ): TargetElement | undefined | null => {
 
     let targetElement: TargetElement | undefined | null;
 
