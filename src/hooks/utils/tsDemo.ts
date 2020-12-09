@@ -141,6 +141,43 @@ interface YcObj {
     [propName: string]: string
 
 }
+// type Action =
+//     | {
+//         type: "INIT"
+//     }
+//     | {
+//         type: "SYNC"
+//     }
+//     | {
+//         type: "LOG_IN"
+//         emailAddress: string
+//     }
+//     | {
+//         type: "LOG_IN_SUCCESS"
+//         accessToken: string
+//     }
+
+// type ActionType = Action["type"]
+// type ExcludeAction<T, U> = T extends { type: U } ? T : never
+// type ExcludeTypeField<A> = { [a in Exclude<keyof A, 'type'>]: A[a] }
+// type ActionObj<T> = ExcludeTypeField<ExcludeAction<Action, T>>
+
+// // {accessToken:string}
+// type ExtractSimpleAction<A> = A extends any
+//     ? {} extends ExcludeTypeField<A>
+//     ? A
+//     : never
+//     : never
+// type SimpleAction = ExtractSimpleAction<Action>
+// type SimpleActionType = SimpleAction['type']
+// type ComplexActionType = Exclude<ActionType, SimpleActionType>
+// declare function dispatch<T extends SimpleActionType>(type: T): void
+// declare function dispatch<T extends ComplexActionType>(type: T, action: ActionObj<T>): void
+
+type Exclude<T,P> = P
+
+// name | age | happy   happy
+
 type Action =
     | {
         type: "INIT"
@@ -156,20 +193,28 @@ type Action =
         type: "LOG_IN_SUCCESS"
         accessToken: string
     }
-type ActionType = Action["type"]
-type ExcludeAction<T, U> = T extends { type: U } ? T : never
-type ExcludeTypeField<A> = { [a in Exclude<keyof A, 'type'>]: A[a] }
-
-type ActionObj<T> = ExcludeTypeField<ExcludeAction<Action, T>>
-
-// {accessToken:string}
+type ActionType = Action['type']
+type ActionObj<T, K> = T extends { type: K } ? T : never
+// type ActionValue<T,K>= 
+// type ActionResult = ActionValue<ActionObj<T, K>,'type'>
 
 
-declare function dispatch<T extends ActionType, U>(type: T, action: ActionObj<T>): void
+// declare function dispatch<T extends ActionType>(type: T, action: ActionObj<Action, T>): {
 
-dispatch('LOG_IN', {
-    emailAddress: 'string'
-})
+// }
+// dispatch('LOG_IN_SUCCESS',{
+//     type: "LOG_IN_SUCCESS",
+//     accessToken:'sd'
+// })
+
+// type ActionType = Action['type']
+// type ActionObj<T, K> = { [t in Exclude<keyof T, K>]: T[t] }
+
+// type ActionValue<T, K> = K extends { type: T } ? T : never  //{type: "LOG_IN_SUCCESS"  accessToken: string }
+
+
+// declare function dispatch<T extends ActionType>(type: T, action: ActionObj<ActionValue<Action, T>, 'type'>): void
+
 // type ActionKey<T, K extends string> = { [t in keyof T]: T[] }
 // type ActionV = ActionKey<Action, 'type'>
 

@@ -1,15 +1,15 @@
-import { useState, useLayoutEffect, useEffect } from 'react'
+import { useState, useEffect, MutableRefObject } from 'react'
 import ResizeObserver from 'resize-observer-polyfill';
-import { getTargetElement, BasicTarget } from './utils/dom';
+import { getTargetElement } from './utils/dom';
 
 type Size = {
     width: number | string
     height: number | string
 }
 
+type BasicTarget = MutableRefObject<null> | null
 
-
-const useSize = (target: any  ): Size => {
+const useSize = (target: BasicTarget): Size => {
     const [state, setState] = useState(() => {
         const el = getTargetElement(target);
         return {
