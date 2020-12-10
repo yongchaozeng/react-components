@@ -1,6 +1,6 @@
 
 import { MutableRefObject } from 'react';
-
+// import './tsDemo'
 
 
 
@@ -142,26 +142,30 @@ type ParsonT = {
 }
 
 type UserInfo = Pick<ParsonT, 'name'>
-let objPick = function (o1: UserInfo, o2: UserInfo): void {
 
+//Exclude  从T找K中不存在的
+type DemoExclude<T, K> = T extends K ? never : T
+type Demo = DemoExclude<1 | 2, 1 | 3>
+let demo: Demo = 2
+
+//Extract  从T找K中存在的
+type ExtractLean<T, K> = T extends K ? T : never
+type DemoExtract = ExtractLean<1 | 2, 1 | 3>
+let demo2: DemoExtract = 1
+
+//Omit 去除未包含
+// {name:'只是',age:12} =>{age:12}
+type Omit<T, K> = DemoExclude<keyof T, K>
+
+type Foo = Omit<{ name: string, age: number }, 'name'>
+let Foo = {
+    num: 1
 }
-let o3 = {
-    name: '23',
-}
-objPick(o3, o3)
+type Str = 'name' | 'age' | 'happy'
 
 
-type record<T extends string, U> = {
-    [key in T]: U
-}
+// Partial
 
-type PersonUser = record<'name' | 'age' | 'haapy', string>
-
-let personUser: PersonUser = {
-    name: '123',
-    age: '123',
-    haapy: '123',
-}
 
 
 
@@ -229,11 +233,9 @@ export type BasicTarget<T> =
 
 type TargetElement = HTMLElement | Element | Document | Window;
 
-// type BasicTarget<T> = null | MutableRefObject<null | undefined> | (() => T | null) | T;
+const getTargetElement = (target?: BasicTarget<TargetElement>, ): TargetElement | undefined | null => {
 
-const getTargetElement = (target: BasicTarget<TargetElement>):TargetElement|undefined|null => {
-
-    let targetElement:TargetElement|undefined|null
+    let targetElement: TargetElement | undefined | null;
 
     if (typeof target === 'function') {
         targetElement = target();

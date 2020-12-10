@@ -1,5 +1,4 @@
 import React, { FC, } from 'react'
-import { useClickAway } from 'ahooks';
 import './index.less'
 type params = {
     selectItem: any

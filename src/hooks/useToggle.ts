@@ -8,9 +8,9 @@ export interface Actions<T = IState> {
   toggle: (value?: T) => void;
 };
 
-function useToggle<T = boolean | undefined>(): [boolean, Actions<T>];
+function useToggle<T = boolean | undefined>(): [boolean, Actions<T>]; // 没传参数
 
-function useToggle<T = IState>(defaultValue: T): [T, Actions<T>];
+function useToggle<T = IState>(defaultValue: T): [T, Actions<T>]; // 
 
 function useToggle<T = IState, U = IState>(
   defaultValue: T,

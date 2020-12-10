@@ -39,7 +39,7 @@ const YcSelect: FC<YcSelect> = (props) => {
                 ((ref as React.RefObject<HTMLInputElement>).current as HTMLInputElement).value = child.props.children
             }
         }
-    }, [])
+    }, [children,defaultVlaue])
 
     const selectItem = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
         setSelectShow(false);

@@ -1,7 +1,6 @@
-import React, { FC, useState, useEffect, useRef, } from 'react'
+import React, { FC, useRef, useEffect } from 'react'
 import { useHistory, withRouter } from "react-router-dom";
-// import { useSize } from 'ahooks'
-import { useTitle, useToggle,useSize } from '@/hooks';
+import { useToggle, useSize } from '@/hooks';
 import Icon from 'components/Icon'
 import Avatar from 'components/Avatar'
 import YcSelect from 'components/yc-select'
@@ -25,6 +24,10 @@ const Home: FC<Home> = (props) => {
 
     const sizeRef = useRef(null)
     const size = useSize(sizeRef)
+    console.log(78)
+    useEffect(() => {
+        console.log(799)
+    }, [])
 
 
     const toApp = (e: React.MouseEvent, type: string) => {
@@ -60,6 +63,7 @@ const Home: FC<Home> = (props) => {
                     </MenuSubItem>
                     <MenuItem>错误信息</MenuItem>
                     <MenuItem>通知信息</MenuItem>
+                    <MenuItem>{`${state}`}</MenuItem>
                 </Menu>
             </div>
             <div className='home-right'>

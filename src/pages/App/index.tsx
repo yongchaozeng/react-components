@@ -1,30 +1,37 @@
-import React from 'react';
-import { useTitle } from 'ahooks';
-
-import logo from '../../logo.svg';
+import React, { useLayoutEffect, useState } from 'react';
 import './App.css';
 
 
-function App() {
-  useTitle('app',{restoreOnUnmount:true})
+class Haha {
+  static standardGreeting = "Hello, there"
+  haha: string
+  constructor(msg: string) {
+    this.haha = msg
+  }
+  change(msg: string) {
+    this.haha = msg
+  }
+}
+let ha = new Haha('test')
+console.log(7, ha)
+ha.change('22')
+console.log(7, ha)
+
+const App = () => {
+  const [value, setValue] = useState(0);
+
+  useLayoutEffect(() => {
+    if (value === 0) {
+      setValue(10 + Math.random() * 200);
+    }
+  }, [value]);
+
+  console.log('render', value);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div onClick={() => setValue(0)}>
+      value: {value}
     </div>
   );
-}
-
+};
 export default App;

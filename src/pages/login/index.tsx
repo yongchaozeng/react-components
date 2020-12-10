@@ -1,18 +1,14 @@
-import React, { FC, useState, useEffect, useRef, useCallback, MutableRefObject, useReducer } from 'react'
+import React, { FC, useState, useEffect, useRef, useCallback, MutableRefObject } from 'react'
 import { useHistory } from "react-router-dom";
 import Input from '../../components/Input/index'
 import Icon from 'components/Icon'
 import './index.less'
-// import   '../../imgs/password.svg'
-// require('../../imgs/user.svg')
-// require('../../imgs/password.svg')
-
-
 
 
 
 function useDebounce(fn: any, delay: number, dep = []) {
     const { current }: MutableRefObject<{ fn: any; timer: null | number; }> = useRef({ fn, timer: null });
+    
     useEffect(function () {
         current.fn = fn;
     }, [fn]);
@@ -31,7 +27,7 @@ type Login = {
 
 }
 
-const Login: FC<Login> = (props) => {
+const Login: FC<Login> = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -45,7 +41,7 @@ const Login: FC<Login> = (props) => {
     const submitSava = () => {
         history.push('/home')
     }
-   
+
     return (
         <div className='login-container' >
             <div className='login-con '>
@@ -57,7 +53,7 @@ const Login: FC<Login> = (props) => {
                     </div>
                     <div className='yc-main'>
                         <Input placeholder='请输入账户' value={username} change={setUsername} >
-                            <Icon name='user' style={{marginTop:'5px'}} size={25} />
+                            <Icon name='user' style={{ marginTop: '5px' }} size={25} />
                         </Input>
                         <Input placeholder='请输入密码' type='password' value={password} change={setPassword} >
                             <Icon name='password' size={25} />
