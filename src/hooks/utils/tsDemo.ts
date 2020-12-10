@@ -174,7 +174,7 @@ interface YcObj {
 // declare function dispatch<T extends SimpleActionType>(type: T): void
 // declare function dispatch<T extends ComplexActionType>(type: T, action: ActionObj<T>): void
 
-type Exclude<T,P> = P
+// type Exclude1<T, P> =T extends P ? T : never
 
 // name | age | happy   happy
 
