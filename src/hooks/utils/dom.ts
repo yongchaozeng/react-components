@@ -137,14 +137,35 @@ type Pick<T, K extends keyof T> = {
     [P in K]: T[P];
 }
 type ParsonT = {
-    name:string
-    age:number
+    name: string
+    age: number
 }
 
-type UserInfo = Pick<ParsonT,'name'>
-let concatObj = function (o1:T, o2:K) {
+type UserInfo = Pick<ParsonT, 'name'>
+let objPick = function (o1: UserInfo, o2: UserInfo): void {
 
 }
+let o3 = {
+    name: '23',
+}
+objPick(o3, o3)
+
+
+type record<T extends string, U> = {
+    [key in T]: U
+}
+
+type PersonUser = record<'name' | 'age' | 'haapy', string>
+
+let personUser: PersonUser = {
+    name: '123',
+    age: '123',
+    haapy: '123',
+}
+
+
+
+
 
 
 
