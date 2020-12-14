@@ -1,18 +1,17 @@
 import React, { FC, useRef, useEffect } from 'react'
 import { useHistory, withRouter } from "react-router-dom";
-import { useToggle, useSize } from '@/hooks';
+import { useToggle, useSize,useDebounceFn } from '@/hooks';
+// import { useDebounceFn, } from 'ahooks'
 import Icon from 'components/Icon'
 import Avatar from 'components/Avatar'
 import YcSelect from 'components/yc-select'
 import YcOption from 'components/yc-select/yc-option'
-import {Menu,SubItem,Item} from 'components/Menu'
+import { Menu, SubItem, Item } from 'components/Menu'
 import './index.less'
-
 
 type Home = {
 
 }
-
 
 const Home: FC<Home> = (props) => {
     let { children } = props
@@ -21,15 +20,24 @@ const Home: FC<Home> = (props) => {
 
     const sizeRef = useRef(null)
     const size = useSize(sizeRef)
-    
+    let { run } = useDebounceFn(
+        (a:any,b:any) => {
+            test1(a,b)
+        },
+    )
+
+    const test1 = (a:any,b:any) => {
+        console.log(7.9);
+
+    }
     useEffect(() => {
-      
+
     }, [])
 
-
     const toApp = (e: React.MouseEvent, type: string) => {
-        console.log(11, e.target, type)
         toggle()
+        // run('s',23)
+        // cancel()
     }
     const haha = (e: React.MouseEvent) => {
 
@@ -44,6 +52,8 @@ const Home: FC<Home> = (props) => {
         history.push('/login')
     }
     const changeLanguer = () => {
+        console.log(7.8);
+
 
     }
 
@@ -53,7 +63,7 @@ const Home: FC<Home> = (props) => {
             <div className='home-sider'>
                 <Menu >
                     <SubItem title='组件'>
-                        <Item onClick={(e) => { toApp(e, 'te') }} >图片裁剪</Item>
+                        <Item onClick={(e) => { run(e, 'te') }} >图片裁剪</Item>
                         <Item onClick={toTest}>文件上传</Item>
                         <Item onClick={(e) => { haha(e) }}>i18N</Item>
                         <Item onClick={(e) => { xx(e) }}>Excel</Item>
