@@ -5,10 +5,7 @@ import Icon from 'components/Icon'
 import Avatar from 'components/Avatar'
 import YcSelect from 'components/yc-select'
 import YcOption from 'components/yc-select/yc-option'
-import Menu from 'components/Menu'
-import MenuItem from 'components/Menu/item'
-import MenuSubItem from 'components/Menu/SubItem'
-
+import {Menu,SubItem,Item} from 'components/Menu'
 import './index.less'
 
 
@@ -24,9 +21,9 @@ const Home: FC<Home> = (props) => {
 
     const sizeRef = useRef(null)
     const size = useSize(sizeRef)
-    console.log(78)
+    
     useEffect(() => {
-        console.log(799)
+      
     }, [])
 
 
@@ -55,15 +52,15 @@ const Home: FC<Home> = (props) => {
 
             <div className='home-sider'>
                 <Menu >
-                    <MenuSubItem title='组件'>
-                        <MenuItem onClick={(e) => { toApp(e, 'te') }} >图片裁剪</MenuItem>
-                        <MenuItem onClick={toTest}>文件上传</MenuItem>
-                        <MenuItem onClick={(e) => { haha(e) }}>i18N</MenuItem>
-                        <MenuItem onClick={(e) => { xx(e) }}>Excel</MenuItem>
-                    </MenuSubItem>
-                    <MenuItem>错误信息</MenuItem>
-                    <MenuItem>通知信息</MenuItem>
-                    <MenuItem>{`${state}`}</MenuItem>
+                    <SubItem title='组件'>
+                        <Item onClick={(e) => { toApp(e, 'te') }} >图片裁剪</Item>
+                        <Item onClick={toTest}>文件上传</Item>
+                        <Item onClick={(e) => { haha(e) }}>i18N</Item>
+                        <Item onClick={(e) => { xx(e) }}>Excel</Item>
+                    </SubItem>
+                    <Item>错误信息</Item>
+                    <Item>通知信息</Item>
+                    <Item>{`${state}`}</Item>
                 </Menu>
             </div>
             <div className='home-right'>

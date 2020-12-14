@@ -1,10 +1,11 @@
 import React, { FC, } from 'react'
 import './index.less'
+import MenuSubItem from './SubItem'
+import MenuItem from './Item'
 type Menu = {
     src?: string
 }
-
-const Menu: FC<Menu> = (props) => {
+export const Menu: FC<Menu> = (props) => {
     let { children } = props
 
 
@@ -18,4 +19,9 @@ const Menu: FC<Menu> = (props) => {
 
 }
 
-export default Menu
+export const SubItem = MenuSubItem
+export const Item = MenuItem
+
+
+
+

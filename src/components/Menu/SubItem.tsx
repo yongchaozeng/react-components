@@ -22,14 +22,12 @@ const MenuSubItem: FC<MenuSubItem> = (props) => {
             setNum(0)
             setTimeout(() => {
                 toggle()
-            }, 30 * length)
+            }, 50 * length)
 
         } else {
             setNum(length * height)
             toggle()
-
         }
-
     }
     return (
         <li className='menu-sub-item' >
