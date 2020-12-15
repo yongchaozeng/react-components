@@ -3,18 +3,24 @@ import './index.less'
 type Icon = {
     name: string
     color?: string
-    size?: number
-    style?:React.CSSProperties
+    size?: number | string
+    style?: React.CSSProperties,
+    className?: string,
 
 }
 
 const Icon: FC<Icon> = (props) => {
-    let { name,size=30,style } = props
+    let { name, size = 30, style, className } = props
 
     require(`../../imgs/${name}.svg`)
 
-    return (
-        <svg style={{width:size,height:size,...style}} ><use xlinkHref={`#${name}`}  ></use></svg>
+    return  (
+        <span className={className}>
+            <svg  style={{ width: size, height: size, ...style }} >
+                <use xlinkHref={`#${name}`}  ></use>
+            </svg>
+        </span>
+
     )
 
 }

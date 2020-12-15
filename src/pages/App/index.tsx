@@ -1,37 +1,71 @@
-import React, { useLayoutEffect, useState } from 'react';
-import './App.css';
+import React, { useLayoutEffect, useEffect, useState } from 'react';
+import { Motion, spring } from 'react-motion';
+import Icon from 'components/Icon'
+import './App.less';
 
-
-class Haha {
-  static standardGreeting = "Hello, there"
-  haha: string
-  constructor(msg: string) {
-    this.haha = msg
-  }
-  change(msg: string) {
-    this.haha = msg
-  }
-}
-let ha = new Haha('test')
-console.log(7, ha)
-ha.change('22')
-console.log(7, ha)
 
 const App = () => {
-  const [value, setValue] = useState(0);
-
-  useLayoutEffect(() => {
-    if (value === 0) {
-      setValue(10 + Math.random() * 200);
-    }
-  }, [value]);
-
-  console.log('render', value);
+  let [num, setNum] = useState(0)
+  let a = [
+    {
+      color: 'red',
+      icon: 'user',
+      text: '新增用户',
+    },
+    {
+      color: 'red',
+      icon: 'user',
+      text: '新增用户',
+    },
+    {
+      color: 'red',
+      icon: 'user',
+      text: '新增用户',
+    },
+    {
+      color: 'red',
+      icon: 'user',
+      text: '新增用户',
+    },
+    {
+      color: 'red',
+      icon: 'user',
+      text: '新增用户',
+    },
+  ]
+  // useEffect(() => {
+  //   setNum(100)
+  // }, [])
 
   return (
-    <div onClick={() => setValue(0)}>
-      value: {value}
+    <div className='app-container'>
+      <button onClick={()=>{setNum(100)}} >test</button>
+      <Motion defaultStyle={{ x: 0, }} style={{ x: spring(num), }}>
+        {value => <ul  >
+          {num}
+        </ul>}
+      </Motion>
+      <ul className='nav-list'>
+        {
+          a.map((item, index) => {
+            return (
+              <li className='nav-list-item ' key={index}>
+                <div className='nav-left'>
+                  <Icon className='icon-box' name='user' size={40} />
+                </div>
+                <div className='nav-right'>
+                  <div className='nav-right-center'>
+                    <p className='nav-number'>300</p>
+                    <p className='nav-title'>新增用户</p>
+                  </div>
+                </div>
+              </li>
+            )
+          })
+        }
+      </ul>
     </div>
   );
 };
 export default App;
+//https://wow.techbrood.com/fiddle/14457
