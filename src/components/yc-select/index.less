@@ -15,7 +15,7 @@
 }
 .select-list{
     position: absolute;
-    top: 32px;
+    top: 40px;
     width: 100%;
     box-shadow: 0 1px 6px rgba(0,0,0,.2);
     margin: 5px 0;
@@ -24,6 +24,31 @@
     background-color: #fff;
     border-radius: 4px;
     text-align: center;
+   
+}
+.select-list-arrow{
+    display: block;
+    position: absolute;
+        top: 32px;
+        left: 50%;
+        width: 14px;
+        height: 14px;
+        transform: translateX(-50%);
+        background-color: #fff;
+        z-index: 1;
+        overflow: hidden;
+        &::before{
+            position: absolute;
+            top: 7px;
+            left: -2px;
+            content: '';
+            display: block;
+            width: 8px;
+            height: 20px;
+            border: 1px solid #ebebeb;
+            transform: rotate(45deg) ;
+            box-shadow: 0 1px 6px rgba(0,0,0,.2);
+        }
 }
 
 .select-item{

@@ -39,7 +39,7 @@ const YcSelect: FC<YcSelect> = (props) => {
                 ((ref as React.RefObject<HTMLInputElement>).current as HTMLInputElement).value = child.props.children
             }
         }
-    }, [children,defaultVlaue])
+    }, [children, defaultVlaue])
 
     const selectItem = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {
         setSelectShow(false);
@@ -58,14 +58,22 @@ const YcSelect: FC<YcSelect> = (props) => {
                 <input ref={ref} id='navbar' placeholder={placeholder}
                     className='select-input' onClick={() => { openSelect() }} /></span>
             {
-                selectShow && <ul className='select-list'  >
+                selectShow &&
 
-                    {React.Children.map(children, child => {
-                        return React.cloneElement((child as any), {
-                            params: { selectItem: selectItem }
-                        });
-                    })}
-                </ul>
+                (
+                    <>
+                        <div className='select-list-arrow'></div>
+                        <ul className='select-list'  >
+
+                            {React.Children.map(children, child => {
+                                return React.cloneElement((child as any), {
+                                    params: { selectItem: selectItem }
+                                });
+                            })}
+                        </ul>
+                    </>
+                )
+
             }
         </div>
     )
