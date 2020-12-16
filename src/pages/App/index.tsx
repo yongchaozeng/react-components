@@ -57,6 +57,7 @@ const App = () => {
                   <div className='nav-right-center'>
                     <p className='nav-number'>300</p>
                     <p className='nav-title'>新增用户testtest2</p>
+                      <p>test3</p>
                   </div>
                 </div>
               </li>
