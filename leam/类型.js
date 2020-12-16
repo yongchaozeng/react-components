@@ -43,7 +43,7 @@ function Bar(){
     Foo.call(this)
 }
 // 原型继承   有些引用类型数据会被共享
-
+ 
 function Foo(){}
 function Bar(){}
 Bar.prototype = new Bar()
@@ -52,7 +52,7 @@ function Foo(){}
 function Bar(){
     Foo.call(this)
 }
-Bar.prototype = new Foo()
+Bar.prototype = new Foo() 
 // 寄生组合继承   
 function Foo(){}
 function Bar(){
@@ -64,3 +64,4 @@ Bar.prototype.constructor  = Bar
 //https://www.jianshu.com/p/504bde348956
 //https://juejin.cn/post/6844904048961781774
 //https://juejin.cn/post/6844903566285471751
+https://juejin.cn/post/6844904048961781774
