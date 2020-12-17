@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/charts": "^1.0.12",
     "ahooks": "^2.9.1",
     "classnames": "^2.2.6",
     "normalize.css": "^8.0.1",

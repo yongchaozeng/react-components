@@ -1,10 +1,11 @@
-import React, { FC,  } from 'react';
+import React, { FC, } from 'react';
+import { Line } from '@ant-design/charts';
 import Icon from 'components/Icon'
 import Counter from 'components/Counter'
 import './App.less';
 
 const App = () => {
- 
+
   let navList = [
     {
       color: 'red',
@@ -38,17 +39,40 @@ const App = () => {
     },
   ]
 
-
+  const data = [
+    { year: '1991', value: 3 },
+    { year: '1992', value: 4 },
+    { year: '1993', value: 3.5 },
+    { year: '1994', value: 5 },
+    { year: '1995', value: 4.9 },
+    { year: '1996', value: 6 },
+    { year: '1997', value: 7 },
+    { year: '1998', value: 9 },
+    { year: '1999', value: 13 },
+  ];
+  const config = {
+    data,
+    height: 400,
+    xField: 'year',
+    yField: 'value',
+    point: {
+      size: 5,
+      shape: 'diamond',
+    },
+  };
   return (
     <div className='app-container'>
-   
+
       <ul className='nav-list'>
         {
           navList.map((item, index) => {
             return (
               <li className='nav-list-item ' key={index}>
                 <div className='nav-left'>
-                  <Icon className='icon-box' name={item.icon} size={40} />
+                  <span className='icon-box' >
+                    <Icon name={item.icon} size={40} />
+                  </span>
+
                 </div>
                 <div className='nav-right'>
                   <div className='nav-right-center'>
@@ -63,6 +87,7 @@ const App = () => {
           })
         }
       </ul>
+      <Line {...config} />;
     </div>
   );
 };
