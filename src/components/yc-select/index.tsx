@@ -2,6 +2,8 @@ import React, { FC, useState, useRef, useEffect } from 'react'
 import { Motion, spring } from 'react-motion'
 import { useClickAway } from 'ahooks';
 import './index.less'
+import YcOption from './yc-option'
+import Icon from '../Icon'
 const classNames = require('classnames')
 
 interface children extends React.ReactElement {
@@ -26,6 +28,7 @@ type YcSelect = {
 const YcSelect: FC<YcSelect> = (props) => {
     let { children, placeholder = '请选择', className, style, defaultVlaue, onChange } = props
     const [selectShow, setSelectShow] = useState(false)
+    const [valShow, setValShow] = useState(true)
     const [num, setNum] = useState(1)
     const openSelect = () => {
         setSelectShow(true)
@@ -35,6 +38,14 @@ const YcSelect: FC<YcSelect> = (props) => {
         setSelectShow(false);
     }, ref);
 
+    useEffect(() => {
+        if (ref.current?.value) {
+            setValShow(true)
+        } else {
+            setValShow(false)
+        }
+
+    }, [ref.current?.value])
     useEffect(() => {
         for (let child of children as children[]) {
             if (defaultVlaue === child.props.value) {
@@ -47,7 +58,6 @@ const YcSelect: FC<YcSelect> = (props) => {
         setSelectShow(false);
         if (ref.current) {
             ref.current.value = (e.target as HTMLLIElement).innerText
-            console.log(e.target);
 
             onChange(e)
         }
@@ -55,13 +65,22 @@ const YcSelect: FC<YcSelect> = (props) => {
     }
 
     return (
-        <div className={classNames(['select-container', className])} style={style} >
-            <span>
-                <input ref={ref} id='navbar' placeholder={placeholder}
-                    className='select-input' onClick={() => { openSelect() }} /></span>
+        <div className={classNames(['select-container', className])} style={style} onClick={() => { openSelect() }}>
+            <input ref={ref} id='navbar'  disabled
+                className={classNames(['select-input', { 'input-opacity': !valShow }])}  />
+
+            {
+                !valShow && <span className='select-placeholder'>{placeholder}</span>
+            }
+            {/* {selectShow ? <Icon className='select-up' name='user' size={16} />
+                : <Icon className='select-down' name='user' size={16} />
+            } */}
+            <Icon className='select-down' name='user' size={16} />
+
+
+
             {
                 selectShow &&
-
                 (
                     <>
                         <Motion defaultStyle={{ x: 0, }} style={{ x: spring(num), }}>
@@ -86,4 +105,7 @@ const YcSelect: FC<YcSelect> = (props) => {
     )
 }
 
-export default YcSelect
+export {
+    YcOption,
+    YcSelect
+}
