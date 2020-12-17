@@ -1,5 +1,6 @@
 import React, { FC, } from 'react'
 import './index.less'
+let classnames = require('classnames')
 type Icon = {
     name: string
     color?: string
@@ -15,11 +16,11 @@ const Icon: FC<Icon> = (props) => {
     require(`../../imgs/${name}.svg`)
 
     return  (
-        <span className={className}>
-            <svg  style={{ width: size, height: size, ...style }} >
+        // <span className={classnames([className,'icon-container'])}>
+            <svg  className={classnames([className,'icon-container'])}  style={{ width: size, height: size, ...style }} >
                 <use xlinkHref={`#${name}`}  ></use>
             </svg>
-        </span>
+        // </span>
 
     )
 
