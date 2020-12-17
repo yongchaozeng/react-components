@@ -58,10 +58,10 @@ function Foo(){}
 function Bar(){
     Foo.call(this)
 }
-Bar.prototype = Foo.prototype
+Bar.prototype = Foo.prototype   
 Bar.prototype.constructor  = Bar
 
 //https://www.jianshu.com/p/504bde348956
 //https://juejin.cn/post/6844904048961781774
 //https://juejin.cn/post/6844903566285471751
-https://juejin.cn/post/6844904048961781774
+//https://juejin.cn/post/6844904048961781774

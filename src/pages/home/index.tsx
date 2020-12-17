@@ -4,8 +4,8 @@ import { useToggle, useSize,useDebounceFn } from '@/hooks';
 // import { useDebounceFn, } from 'ahooks'
 import Icon from 'components/Icon'
 import Avatar from 'components/Avatar'
-import YcSelect from 'components/yc-select'
-import YcOption from 'components/yc-select/yc-option'
+import {YcSelect,YcOption} from 'components/yc-select'
+// import  from 'components/yc-select/yc-option'
 import { Menu, SubItem, Item } from 'components/Menu'
 import './index.less'
 
@@ -77,13 +77,13 @@ const Home: FC<Home> = (props) => {
 
                 <div className='header-container' >
                     <div className='header-left' onClick={toLogin}  >
-                        <Icon name={'login-icon'} />
+                        <Icon name={'login-icon'} size={20} />
                     </div>
                     <div className='header-right'>
-                        <div ref={sizeRef}>
+                        {/* <div ref={sizeRef}>
                             try to resize the preview window <br />
                             dimensions -- width: {size.width} px, height: {size.height} px
-                        </div>
+                        </div> */}
                         <YcSelect onChange={() => { changeLanguer() }} defaultVlaue='zh' className={'languer-select'}   >
                             <YcOption value='zh'>中文</YcOption>
                             <YcOption value='en' >EN</YcOption>
