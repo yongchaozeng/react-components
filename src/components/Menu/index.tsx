@@ -1,7 +1,7 @@
 import React, { FC, } from 'react'
 import './index.less'
 import MenuSubItem from './SubItem'
-import MenuItem from './Item'
+import MenuItem from './item'
 type Menu = {
     src?: string
 }
