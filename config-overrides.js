@@ -32,19 +32,34 @@ module.exports = override(
         // "components": path.resolve(__dirname, 'src/components'),
     }),
     addDecoratorsLegacy(),
-    addLessLoader(),
+
     addWebpackModuleRule({
         test: /\.svg$/, use: [
             { loader: 'svg-sprite-loader', options: {} },
             {
                 loader: 'svgo-loader', options: {
                     plugins: [
-                        // { removeNonInheritableGroupAttrs: true },
-                        // { collapseGroups: true },
-                        // { removeAttrs: { attrs: '(fill|stroke)' } },
                     ],
                 }
             },
         ]
-    })
+    }),
+    addLessLoader({
+        lessOptions: {
+            // javascriptEnabled: true,
+            // modifyVars: {
+            //     '@primary-color': '#1DA57A'
+            // }
+        }
+    }),
+    (config) => {
+        const loaders = config.module.rules.find(rule => Array.isArray(rule.oneOf)).oneOf;
+        loaders[8].use.push({
+            loader: 'style-resources-loader',
+            options: {
+                patterns: path.resolve(__dirname, 'src/styles/common.less')//全局引入公共的scss 文件
+            }
+        })
+        return config
+    }
 )
