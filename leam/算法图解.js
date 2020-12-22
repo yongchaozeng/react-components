@@ -119,37 +119,32 @@ function maoPao(array) {
 let data = {
     you: ["alice", "bob", "claire"],
     bob: ["anuj", "peggy"],
-    alice: ["peggy"],
-    claire: ["thom", "jonny"],
+    alice: ["peggym"],
+    claire: ["tho", "jonny"],
     anuj: [],
     peggy: [],
     thom: [],
     jonny: [],
 }
-
+ 
 
 function dfs(obj) {
-    let array = []
-    array.push(obj.you)
-    let i = 10
-    while (array.length && i) {
-        i--
-        
-        debugger
-        array.map((item) => {
-            if (isOk(item)) {
-                return true
-            } else {
-                array.shift()
-                // if (obj[item] && obj[item].length) {
-                //     array.concat(obj[item])
-                // }
+    let array = obj.you
+    let sum = []
+    while (array.length) {
+        let item = array[0]
+        if (isOk(item)) {
+            return item
+        } else {
+            array.shift()
+            if (obj[item] && obj[item].length) {
+                array = array.concat(obj[item])
             }
-        })
+        }
     }
     return false
     function isOk(name) {
-        return !!(name[-1] = 'm')
+        return !!(name[name.length - 1] === 'o')
     }
 }
 console.log(dfs(data));
