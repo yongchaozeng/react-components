@@ -40,13 +40,124 @@ let search = (list, number) => {
         }
     }
 }
-console.log(search(myList, 11));
-// console.log(myList[search(myList, 5)]);
-// log2 10 5
+// console.log(search(myList, 11));
 
- // 内存可以理解为抽屉
- // 链表 增删快，访问慢  数组访问快 增删慢
- // 选择排序 定义基准为最小或最大 然后双重循环对比 oN
- // 递归尾回调优化
- // 字典:查找速度快，防重复    但是会冲突，两个键位置相同  填充因子 良好的散列分配
- // 图  广度优先搜索   有a到b的路径吗，那条路最短  队列和字典的运用  完成最短路径的搜索
+// 内存可以理解为抽屉
+// 链表 增删快，访问慢  数组访问快 增删慢
+// 选择排序 定义基准为最小或最大 然后双重循环对比 oN
+// 递归尾回调优化
+// 字典:查找速度快，防重复    但是会冲突，两个键位置相同  填充因子 良好的散列分配
+// 图  广度优先搜索   有a到b的路径吗，那条路最短  队列和字典的运用  完成最短路径的搜索
+
+
+let arr = [3, 1, 9, 57, 15, 24, 12, 7, 41, 23, 5]
+function sort(array) {
+
+    for (let i = 0; i < array.length - 1; i++) {
+        let max = array[0]
+        let index = 0
+        for (let j = 0; j < array.length - i; j++) {
+            if (max < array[j]) {
+                max = array[j]
+                index = j
+            }
+            if (j === array.length - i - 1) {
+                array[index] = array[j]
+                array[j] = max
+            }
+        }
+    }
+}
+// sort(arr)
+function kuaisu(array) {
+    let len = array.length
+    if (len === 0) return
+    if (len === 1) return array
+
+    let mid = Math.floor(len / 2)
+    let left = []
+    let right = []
+
+    array.forEach(item => {
+        if (item < array[mid]) {
+            left.push(item)
+        } else if (item > array[mid]) {
+            right.push(item)
+        }
+    });
+    if (left.length === 0) {
+        return [array[mid]].concat(kuaisu(right))
+    }
+    if (right.length === 0) {
+        return kuaisu(left).concat([array[mid]])
+    }
+    if (left.length !== 0 && right.length !== 0) {
+        return kuaisu(left).concat([array[mid]].concat(kuaisu(right)))
+    }
+
+
+}
+// console.log(kuaisu(arr));
+
+function maoPao(array) {
+    let temp = null;
+    for (let i = 0; i < array.length - 1; i++) {
+        for (let j = i; j < array.length; j++) {
+            if (array[j] < array[j - 1]) {
+                temp = array[j]
+                array[j] = array[j - 1]
+                array[j - 1] = temp
+            }
+        }
+    }
+    console.log(array);
+}
+
+// maoPao(arr)
+
+// 图广度优先搜索
+let data = {
+    you: ["alice", "bob", "claire"],
+    bob: ["anuj", "peggy"],
+    alice: ["peggy"],
+    claire: ["thom", "jonny"],
+    anuj: [],
+    peggy: [],
+    thom: [],
+    jonny: [],
+}
+
+
+function dfs(obj) {
+    let array = []
+    array.push(obj.you)
+    let i = 10
+    while (array.length && i) {
+        i--
+        
+        debugger
+        array.map((item) => {
+            if (isOk(item)) {
+                return true
+            } else {
+                array.shift()
+                // if (obj[item] && obj[item].length) {
+                //     array.concat(obj[item])
+                // }
+            }
+        })
+    }
+    return false
+    function isOk(name) {
+        return !!(name[-1] = 'm')
+    }
+}
+console.log(dfs(data));
+
+
+
+
+
+
+
+
