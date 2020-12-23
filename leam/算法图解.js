@@ -149,7 +149,7 @@ function dfs(obj) {
 }
 // console.log(dfs(data));
 
-// 迪克斯特拉算法 权图
+// 迪克斯特拉算法 权图 //https://juejin.cn/post/6844904151596400648
 // let data2 = {
 //     start: ["a", "b",],
 //     a: 6,
@@ -159,13 +159,44 @@ function dfs(obj) {
 // console.log(data2[data2.start[0]]);
 // console.log(data2[data2.start[1]]);
 
-let array1 = [0, 60, 10, null, 50, null]
-let edge = {
-    s: 2,
-    e:2,
-    weight:0
+// let array1 = [0, 60, 10, null, 50, null]
+
+class Node{
+    constructor(s,e,weight){
+        this.s = s
+        this.e = e
+        this.weight = weight
+    }
 }
-//https://juejin.cn/post/6844904151596400648
+class Graph {
+    constructor(){
+        this.array = [0]
+        
+    }
+    addEdge(s,e,weight){
+        let node = new Node(s,e,weight)
+        if(s ===1){
+            this.array[s] = weight
+        }
+        if(s === 2 && e === 4){
+            
+        }
+    }
+    log(){
+        console.log(this.array)
+    }
+}
+let graph = new Graph()
+graph.log()
+// graph.addEdge(1, 2, 60);
+// graph.addEdge(1, 3, 10);
+// graph.addEdge(1, 5, 50);
+// graph.addEdge(2, 4, 35);
+// graph.addEdge(3, 4, 30);
+// graph.addEdge(3, 5, 25);
+// graph.addEdge(4, 6, 15);
+// graph.addEdge(5, 2, 30);
+// graph.addEdge(5, 6, 105);
 
 
 
