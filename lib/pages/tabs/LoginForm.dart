@@ -1,37 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_app123/http.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
-
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Home();
-  }
-}
-
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 30.0),
-      child: LoginForm(),
-    );
-  }
-}
-
-class LoginForm extends StatefulWidget {
-
+class LoginFormPage extends StatefulWidget {
   @override
   _LoginFormState createState() => new _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
-
+class _LoginFormState extends State<LoginFormPage> {
   TextEditingController _unameController = new TextEditingController();
   TextEditingController _pwdController = new TextEditingController();
   GlobalKey _formKey = new GlobalKey<FormState>();
@@ -62,11 +38,8 @@ class _LoginFormState extends State<LoginForm> {
                     prefixIcon: Icon(Icons.person)),
                 // 校验用户名
                 validator: (v) {
-                  return v
-                      .trim()
-                      .length > 0 ? null : "用户名不能为空";
-                }
-            ),
+                  return v.trim().length > 0 ? null : "用户名不能为空";
+                }),
             TextFormField(
                 controller: _pwdController,
                 decoration: InputDecoration(
@@ -75,11 +48,8 @@ class _LoginFormState extends State<LoginForm> {
                     prefixIcon: Icon(Icons.lock)),
                 obscureText: true,
                 validator: (v) {
-                  return v
-                      .trim()
-                      .length > 5 ? null : "密码不能少于6位";
-                }
-            ),
+                  return v.trim().length > 5 ? null : "密码不能少于6位";
+                }),
             RaisedButton(
               child: Text("登录"),
               color: Colors.blue,
@@ -92,8 +62,32 @@ class _LoginFormState extends State<LoginForm> {
                 if ((_formKey.currentState as FormState).validate()) {
                   //验证通过提交数据
                   print(_unameController.text);
-                  HttpTestRoute();
                 }
+              },
+            ),
+
+            Text('忘记密码'),
+            Text('没有账户？注册'),
+            FlatButton(
+              child: Text("忘记密码"),
+              textColor: Colors.blue,
+              onPressed: () {
+                //导航到新路由
+//                Navigator.push(context, MaterialPageRoute(builder: (context) {
+//                  return NewRoute();
+//                }));
+                Navigator.pushNamed(context, "/forgotPsd");
+              },
+            ),
+            FlatButton(
+              child: Text("注册"),
+              textColor: Colors.blue,
+              onPressed: () {
+                //导航到新路由
+//                Navigator.push(context, MaterialPageRoute(builder: (context) {
+//                  return NewRoute();
+//                }));
+                Navigator.pushNamed(context, "/register");
               },
             ),
 
@@ -111,11 +105,23 @@ class _LoginFormState extends State<LoginForm> {
 //              },
 //            ),
           ],
-        )
-    );
+        ));
   }
 }
 
+class NewRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("New route"),
+      ),
+      body: Center(
+        child: Text("This is new route"),
+      ),
+    );
+  }
+}
 
 // 弹窗
 Future<bool> showDeleteConfirmDialog1(context) {
