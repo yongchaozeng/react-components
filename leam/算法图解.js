@@ -126,7 +126,7 @@ let data = {
     thom: [],
     jonny: [],
 }
- 
+
 
 function dfs(obj) {
     let array = obj.you
@@ -147,7 +147,31 @@ function dfs(obj) {
         return !!(name[name.length - 1] === 'o')
     }
 }
-console.log(dfs(data));
+// console.log(dfs(data));
+
+// 迪克斯特拉算法 权图
+// let data2 = {
+//     start: ["a", "b",],
+//     a: 6,
+//     b: 2,
+// }
+// console.log(data2.start);
+// console.log(data2[data2.start[0]]);
+// console.log(data2[data2.start[1]]);
+
+let array1 = [0, 60, 10, null, 50, null]
+let edge = {
+    s: 2,
+    e:2,
+    weight:0
+}
+//https://juejin.cn/post/6844904151596400648
+
+
+
+
+
+
 
 
 
