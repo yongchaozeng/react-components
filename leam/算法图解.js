@@ -161,33 +161,58 @@ function dfs(obj) {
 
 // let array1 = [0, 60, 10, null, 50, null]
 
-class Node{
-    constructor(s,e,weight){
-        this.s = s
-        this.e = e
+class Node {
+    constructor(start, end, weight) {
+        this.start = start
+        this.end = end
         this.weight = weight
     }
 }
 class Graph {
-    constructor(){
+    constructor() {
         this.array = [0]
-        
-    }
-    addEdge(s,e,weight){
-        let node = new Node(s,e,weight)
-        if(s ===1){
-            this.array[s] = weight
+        this.o = {
+
         }
-        if(s === 2 && e === 4){
-            
+        let o1 = {
+            1: [2, 3, 5],
+            2: [4],
+            3: [4, 5],
+            4: [6],
+            5: [2, 6],
         }
     }
-    log(){
-        console.log(this.array)
+    addEdge(start, end, weight) {
+        let node = new Node(start, end, weight)
+        if (!this.o[start]) {
+            this.o[start] = []
+        }
+        this.o[start].push(node)
+    }
+    log() {
+        let array = this.o[1]
+        while (array.length) {
+            let item = array[0]
+            if (item.start === 1) {
+                this.array[item.end - 1] = item.weight
+            } else {
+                let value = item.weight + this.array[item.start - 1]
+                if (!this.array[item.end - 1] || value < this.array[item.end - 1]) {
+                    this.array[item.end - 1] = value
+                }
+            }
+            let val = array.shift()
+            if (val && val.end && this.o[val.end]) {
+                array = array.concat(this.o[val.end])
+            }
+        }
+
+        console.log(this.array);
+
     }
 }
-let graph = new Graph()
-graph.log()
+// let graph = new Graph()
+
 // graph.addEdge(1, 2, 60);
 // graph.addEdge(1, 3, 10);
 // graph.addEdge(1, 5, 50);
@@ -197,9 +222,52 @@ graph.log()
 // graph.addEdge(4, 6, 15);
 // graph.addEdge(5, 2, 30);
 // graph.addEdge(5, 6, 105);
+// graph.log()
 
+// 贪婪算法 广播台 //https://blog.csdn.net/qq_42739440/article/details/97009253
+let set = ['mt', 'wa', 'or', 'id', 'nv', 'ut', 'ca', 'az']
+let stations = {
+    kone: ["id", "nv", "ut"],
+    ktwo: ["wa", "id", "mt"],
+    kthree: ["or", "nv", "ca"],
+    kfour: ["nv", "ut"],
+    kfive: ["ca", "az"],
+    haha:['az',"or", "nv", "ca"]
+}
+let finaly_stations = [] // 最终
+function bin(a, b) {
+   return a.filter(function(v){ return b.indexOf(v) > -1 })
+}
+console.log(9,
+    jiao([1,2,3],[2,3]));
 
-
+function jiao(a, b) {
+    return a.filter(function(v){ return b.indexOf(v) > -1 })
+}
+function cha(a,b){
+  return  a.filter(function(v){ return b.indexOf(v) == -1 })
+}
+function tanlan() {
+    let i = 10;
+    while (set && set.length ) {
+        let best_station = []
+        let best_states_covered = []
+        Object.keys(stations).forEach((item) => {
+            coverd  = jiao(stations[item],set)
+            debugger
+            if(coverd.length>best_states_covered.length ){
+                best_station = item  
+                best_states_covered = coverd
+                set = cha(set,coverd)   
+                
+                finaly_stations.push(best_station) 
+            }
+        })
+    }
+    console.log(finaly_stations);
+    
+}
+tanlan()
 
 
 
