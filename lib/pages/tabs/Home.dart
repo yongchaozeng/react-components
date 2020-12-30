@@ -92,7 +92,7 @@ class _LoginFormState extends State<LoginForm> {
                 if ((_formKey.currentState as FormState).validate()) {
                   //验证通过提交数据
                   print(_unameController.text);
-                  HttpTestRoute();
+//                  HttpTestRoute();
                 }
               },
             ),

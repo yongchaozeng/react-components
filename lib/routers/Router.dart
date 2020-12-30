@@ -10,6 +10,7 @@ final routes = {
 };
 
 //统一处理命名路由
+// ignore: missing_return
 var onGenerateRoute = (RouteSettings settings) {
   final String name = settings.name;
   final Function pageContentBuilder = routes[name];
