@@ -115,22 +115,98 @@ function maoPao(array) {
 
 // maoPao(arr)
 
+/*
+这篇文章是自己学习《算法图解》的一些读书笔记，能力一般，水平有限，有写得不好的地方，欢迎指出
+
+如何在朋友圈通过联系最少的人找到芒果商人，图的广度搜索
+我们的思路肯定是先从自己认识的人开始找，那么首先应该找到自己的朋友，自己的朋友没有，再去朋友的朋友里面找
+
+这个地方就可以使用队列来帮助查找，首先把自己的朋友放进队列中，查找之后没有，在把朋友的朋友添加进队列
+
+class Search {
+    constructor() {
+        this.map = {}
+    }
+    addNode() {
+
+    }
+    bfs() {
+
+    }
+}
+
+let graph = new Search()
+创建一个类，存储一个map对象，用来描述朋友关系，使用addNode添加朋友，bfs找出最短路径
+
+addNode实现
+   addNode(start, end) {
+        if (!this.map[start]) {
+            this.map[start] = []
+        }
+        this.map[start].push(end)
+    }
+    graph.addNode('start', 'bob')
+    graph.addNode('start', 'alice')
+    graph.addNode('start', 'claire')
+    graph.addNode('bob', 'anuj')
+    graph.addNode('bob', 'peggy')
+    graph.addNode('alice', 'peggym')
+    graph.addNode('claire', 'tho')
+    graph.addNode('claire', 'jonny')
+
+
+     map = {
+        start: ["alice", "bob", "claire"],
+        bob: ["anuj", "peggy"],
+        alice: ["peggym"],
+        claire: ["tho", "jonny"],
+    }
+
+    bfs实现
+     let queue = this.map.start;
+
+        while (queue.length) {
+            let item = queue[0];
+            if (isSearchOf(item)) {
+                this.value = item
+                return item
+            } else {
+                queue.shift()
+
+                if (this.map[item] && this.map[item].length) {
+                    queue = queue.concat(this.map[item])
+                }
+            }
+        }
+        return false
+        function isSearchOf(name) {
+            return !!(name[name.length - 1] === 'f')
+        }
+
+*/
+
+
 // 图广度优先搜索
 let data = {
     you: ["alice", "bob", "claire"],
     bob: ["anuj", "peggy"],
     alice: ["peggym"],
-    claire: ["tho", "jonny"],
-    anuj: [],
-    peggy: [],
-    thom: [],
-    jonny: [],
+    claire: ["tho", "jonny"],   
+    anuj: ['yasd'],
+    peggym: ['test'],
+    thom: ['boolj'],
+    jonny: ['we'],
 }
-
+let o1 = {
+    value:start,
+    children:[
+        
+    ]
+}
 
 function dfs(obj) {
     let array = obj.you
-    let sum = []
+
     while (array.length) {
         let item = array[0]
         if (isOk(item)) {
@@ -147,6 +223,7 @@ function dfs(obj) {
         return !!(name[name.length - 1] === 'o')
     }
 }
+
 // console.log(dfs(data));
 
 // 迪克斯特拉算法 权图 //https://juejin.cn/post/6844904151596400648
@@ -174,13 +251,7 @@ class Graph {
         this.o = {
 
         }
-        let o1 = {
-            1: [2, 3, 5],
-            2: [4],
-            3: [4, 5],
-            4: [6],
-            5: [2, 6],
-        }
+
     }
     addEdge(start, end, weight) {
         let node = new Node(start, end, weight)
@@ -232,40 +303,40 @@ let stations = {
     kthree: ["or", "nv", "ca"],
     kfour: ["nv", "ut"],
     kfive: ["ca", "az"],
-    haha:['az',"or", "nv", "ca"]
+    haha: ['az', "or", "nv", "ca"]
 }
 let finaly_stations = [] // 最终
 function bin(a, b) {
-   return a.filter(function(v){ return b.indexOf(v) > -1 })
+    return a.filter(function (v) { return b.indexOf(v) > -1 })
 }
 console.log(9,
-    jiao([1,2,3],[2,3]));
+    jiao([1, 2, 3], [2, 3]));
 
 function jiao(a, b) {
-    return a.filter(function(v){ return b.indexOf(v) > -1 })
+    return a.filter(function (v) { return b.indexOf(v) > -1 })
 }
-function cha(a,b){
-  return  a.filter(function(v){ return b.indexOf(v) == -1 })
+function cha(a, b) {
+    return a.filter(function (v) { return b.indexOf(v) == -1 })
 }
 function tanlan() {
     let i = 10;
-    while (set && set.length ) {
+    while (set && set.length) {
         let best_station = []
         let best_states_covered = []
         Object.keys(stations).forEach((item) => {
-            coverd  = jiao(stations[item],set)
+            coverd = jiao(stations[item], set)
             debugger
-            if(coverd.length>best_states_covered.length ){
-                best_station = item  
+            if (coverd.length > best_states_covered.length) {
+                best_station = item
                 best_states_covered = coverd
-                set = cha(set,coverd)   
-                
-                finaly_stations.push(best_station) 
+                set = cha(set, coverd)
+
+                finaly_stations.push(best_station)
             }
         })
     }
     console.log(finaly_stations);
-    
+
 }
 tanlan()
 

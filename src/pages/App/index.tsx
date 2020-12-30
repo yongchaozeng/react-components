@@ -1,5 +1,5 @@
 import React, { FC, } from 'react';
-import { Line, Column } from '@ant-design/charts';
+// import { Line, Column } from '@ant-design/charts';
 import Icon from 'components/Icon'
 import Counter from 'components/Counter'
 import './App.less';
@@ -185,8 +185,8 @@ const App = () => {
         }
       </ul>
       <div className='charts-list'>
-        <Column className='charts-card' style={{flex:1}} {...ColumnConfig} />
-        <Line className='charts-card' {...config} />
+        {/* <Column className='charts-card' style={{flex:1}} {...ColumnConfig} /> */}
+        {/* <Line className='charts-card' {...config} /> */}
       </div>
     </div>
   );
