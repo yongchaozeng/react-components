@@ -3,28 +3,8 @@ const path = require('path')
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
  
 const smp = new SpeedMeasurePlugin();
-// const rewireLess = require('react-app-rewire-less');
+const rewireLess = require('react-app-rewire-less');
 
-// module.exports = override(
-//   addWebpackAlias({
-//     "@": path.resolve(__dirname, 'src')
-//   }),
-//   addDecoratorsLegacy(), 
-// );
-
-// const resolve = path.resolve
-// module.exports = override(
-
-//     addWebpackAlias({
-//         ['@']: resolve('src')
-//     }),
-//     (config, env) => {
-//         config = rewireLess.withLoaderOptions({
-//             modifyVars: { "@primary-color": "#9F35FF" },
-//         })(config, env);
-//         return config
-//     }
-// )
 
 
 module.exports = override(
@@ -48,10 +28,7 @@ module.exports = override(
     }),
     addLessLoader({
         lessOptions: {
-            // javascriptEnabled: true,
-            // modifyVars: {
-            //     '@primary-color': '#1DA57A'
-            // }
+           
         }
     }),
     (config) => {
@@ -63,25 +40,7 @@ module.exports = override(
             }
         })
 
-        
-        // loaders[0].include = path.resolve(__dirname,'src')
-        loaders[0].exclude = /node_modules/
-        
-        // loaders[1].include = path.resolve(__dirname,'src')
-        loaders[1].exclude = /node_modules/
-        
-        // loaders[2].include = path.resolve(__dirname,'src')
-        loaders[2].exclude = /node_modules/
-        // loaders[3].include = path.resolve(__dirname,'src')
-        loaders[3].exclude = /node_modules/
-        // loaders[4].include = path.resolve(__dirname,'src')
-        loaders[4].exclude = /node_modules/
-        // loaders[5].include = path.resolve(__dirname,'src')
-        loaders[5].exclude = /node_modules/
-        // loaders[6].include = path.resolve(__dirname,'src')
-        loaders[6].exclude = /node_modules/
-        return smp.wrap(config)
-
-        // return config
+  
+        return config
     }
 )
