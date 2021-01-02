@@ -1,8 +1,8 @@
 const { override, addWebpackAlias, addDecoratorsLegacy, addLessLoader, addWebpackModuleRule } = require('customize-cra');
 const path = require('path')
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+// const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
  
-const smp = new SpeedMeasurePlugin();
+// const smp = new SpeedMeasurePlugin();
 const rewireLess = require('react-app-rewire-less');
 
 
