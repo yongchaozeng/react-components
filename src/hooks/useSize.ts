@@ -41,5 +41,4 @@ const useSize = (target: BasicTarget): Size => {
     return state
 }
 
-console.log(11, ResizeObserver)
 export default useSize

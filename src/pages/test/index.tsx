@@ -1,19 +1,19 @@
-import React, { useState, useEffect, ReactEventHandler, SyntheticEvent, EventHandler } from 'react';
-import { useTitle, useRequest } from 'ahooks';
+import React, { useState, useEffect, useRef, } from 'react';
 import Input from 'components/Input'
 import Avatar from 'components/Avatar'
-import { YcSelect, YcOption } from 'components/yc-select'
+import { isNumber } from '@/utils'
 import './test.less';
+import { Target } from 'ahooks/lib/useScroll';
 
 interface CanvasXY {
-  (e: React.MouseEvent<HTMLElement>): { x: number, y: number }
+  (e: React.MouseEvent<HTMLElement> | MouseEvent): { x: number, y: number }
 }
 
-function Test() {
-  let [a, setA] = useState(0)
 
+let index: number | undefined
+
+function Test() {
   const [isMove, setIsMove] = useState(true);
-  const [username, setUsername] = useState('');
   const [xy, setXy] = useState({
     x: 0,
     y: 0
@@ -76,21 +76,42 @@ function Test() {
       },
     }
   ]
-  useEffect(() => {
 
+
+  useEffect(() => {
+    const eventMouseup = (e: MouseEvent) => {
+      console.log(9);
+    }
+    const eventMousemove = (e: MouseEvent) => {
+      // let index:number = (e.target as HTMLDivElement).dataset.index
+
+
+
+    }
+    window.addEventListener('mouseup', eventMouseup)
+    window.addEventListener('mousemove', eventMousemove)
+    return () => {
+      window.removeEventListener('mouseup', eventMouseup)
+      window.removeEventListener('mousemove', eventMousemove)
+    }
+  })
+  useEffect(() => {
+    setCenterArray(centerArray)
+  }, [centerArray])
+
+  useEffect(() => {
     setTimeout(() => {
       setComponentData(arr)
-      console.log(arr);
+      // console.log(arr);
     }, 10)
-    setA((state) => {
-      return state++
-    })
+
 
   }, [])
 
 
+
   const canvasXy: CanvasXY = (e) => {
-    return { x: e.clientX - (e.target as HTMLElement).offsetLeft, y: e.clientY - (e.target as HTMLElement).offsetTop }
+    return { x: e.clientX - (e.currentTarget as HTMLElement).offsetLeft, y: e.clientY - (e.currentTarget as HTMLElement).offsetTop }
   }
 
   const dragstart = (e: React.DragEvent<HTMLDivElement>) => {
@@ -115,26 +136,40 @@ function Test() {
   }
 
   const MouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    setIsMove(true)
-    console.log(1);
+    // setIsMove(true)
+    // setIndex(Number((e.currentTarget as HTMLDivElement).dataset.index))
+    // console.log(1, Number((e.currentTarget as HTMLDivElement).dataset.index));
+    index = Number((e.currentTarget as HTMLDivElement).dataset.index)
+    // console.log(1.1, index);
   }
-  const MouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    console.log(2);
-    if (isMove) {
-      setXy(canvasXy(e))
-    }
-  }
+  // const MouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  //   let index: number = Number((e.currentTarget as HTMLDivElement).dataset.index)
+
+  //   if (index !== undefined) {
+  //     let xy = canvasXy(e)
+
+  //     // centerArray[index].x = 100;
+  //     // centerArray[index].y = 100;
+  //     // console.log(e.currentTarget);
+
+  //     if (e.currentTarget) {
+  //       console.log(3, xy.x);
+
+  //       (e.currentTarget as any).style.left = `${xy.x}px`;
+  //       (e.currentTarget as any).style.top = `${xy.y}px`;
+
+  //     }
+  //     // e.target.style.top = xy.y
+  //     // console.log(centerArray[0].x = 100)
+
+  //   }
+
+  //   // if (isMove) {
+  //   //   setXy(canvasXy(e))
+  //   // }
+  // }
   const MouseUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // setComponentData(componentData)
-    console.log(3);
-    
-    let index = (e.target as HTMLDivElement).dataset.index
-    if (index) {
-      // console.log(index);
-
-      // componentData[index].x = xy.x
-      // componentData[index].y = xy.y
-    }
     // console.log();
 
     setIsMove(false)
@@ -143,14 +178,13 @@ function Test() {
     <div className='container'>
       {/* 组件列表 */}
       <div onDragStart={(e) => { dragstart(e) }} className='left'>
-        <h6>{`${xy.x}`}</h6>
-        <h6>{`${xy.y}`}</h6>
         {
           componentData.map((item, index) => {
             return <div onMouseUp={MouseUp} className='box' draggable="true" data-index={index} key={index}>{item.label}</div>
           })
         }
       </div>
+
       {/*  画布 */}
       <div onDrop={drop} onDragOver={onDragOver} className='center'>
         {
@@ -158,10 +192,11 @@ function Test() {
             let Component = item['component']
             return (
               <div data-index={index} className='component-container'
-                onMouseMove={MouseMove}
+                // onMouseMove={MouseMove}
                 onMouseDown={MouseDown}
-                onMouseUp={MouseUp}
+                // onMouseUp={MouseUp}
                 style={{ left: item.x, top: item.y }} key={index} >
+                <h6>{item.x}</h6>
                 <Component key={index} src={require('../../imgs/login-bg.jpg')} ></Component>
               </div>
             )

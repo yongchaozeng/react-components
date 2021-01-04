@@ -58,7 +58,7 @@ let o2 = {
     name: '小黄', sex: '男', age: 13
 }
 
-console.log(tt(o1, o2));
+// console.log(tt(o1, o2));
 
 
 // 类型保护
@@ -115,7 +115,8 @@ interface Map<T> {
 }
 let keys: keyof Map<number> = 1; // string
 let value: Map<number>['foo'] = 2; // number
-console.log(1, keys, value);
+
+// console.log(1, keys, value);
 
 interface Person {
     name: string,
@@ -216,7 +217,7 @@ createArray = function <T>(length: number, value: T): Array<T> {
 }
 
 
-console.log(12, createArray(5, 235));
+// console.log(12, createArray(5, 235));
 
 
 
@@ -231,9 +232,9 @@ type TargetElement = HTMLElement | Element | Document | Window;
 
 // type BasicTarget<T> = null | MutableRefObject<null | undefined> | (() => T | null) | T;
 
-const getTargetElement = (target: BasicTarget<TargetElement>):TargetElement|undefined|null => {
+const getTargetElement = (target: BasicTarget<TargetElement>): TargetElement | undefined | null => {
 
-    let targetElement:TargetElement|undefined|null
+    let targetElement: TargetElement | undefined | null
 
     if (typeof target === 'function') {
         targetElement = target();
