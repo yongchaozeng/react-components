@@ -10,14 +10,12 @@ interface CanvasXY {
 }
 
 
-let index: number | undefined
-
+let eventDom: HTMLDivElement;
+let left: number;
+let top: number;
 function Test() {
-  const [isMove, setIsMove] = useState(true);
-  const [xy, setXy] = useState({
-    x: 0,
-    y: 0
-  });
+  let [toolMenuShow, setToolMenuShow] = useState(false)
+  let [xy, setXy] = useState({ x: 0, y: 0 })
   let [componentData, setComponentData] = useState<any[]>([{ label: 'test' }])
   let [centerArray, setCenterArray] = useState<any[]>([])
   let arr = [
@@ -78,23 +76,11 @@ function Test() {
   ]
 
 
+
   useEffect(() => {
-    const eventMouseup = (e: MouseEvent) => {
-      console.log(9);
-    }
-    const eventMousemove = (e: MouseEvent) => {
-      // let index:number = (e.target as HTMLDivElement).dataset.index
-
-
-
-    }
-    window.addEventListener('mouseup', eventMouseup)
-    window.addEventListener('mousemove', eventMousemove)
-    return () => {
-      window.removeEventListener('mouseup', eventMouseup)
-      window.removeEventListener('mousemove', eventMousemove)
-    }
-  })
+    left = (document.querySelector('.center') as HTMLElement).offsetLeft;
+    top = (document.querySelector('.center') as HTMLElement).offsetTop;
+  }, [])
   useEffect(() => {
     setCenterArray(centerArray)
   }, [centerArray])
@@ -102,9 +88,7 @@ function Test() {
   useEffect(() => {
     setTimeout(() => {
       setComponentData(arr)
-      // console.log(arr);
     }, 10)
-
 
   }, [])
 
@@ -121,6 +105,7 @@ function Test() {
     }
   }
 
+
   const drop = (e: React.DragEvent<HTMLElement>) => {
     let index = e.dataTransfer.getData('index')
     if (index !== '') {
@@ -134,55 +119,72 @@ function Test() {
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault()
   }
+  const eventMouseup = (e: MouseEvent) => {
+    window.removeEventListener('mouseup', eventMouseup)
+    window.removeEventListener('mousemove', eventMousemove)
+  }
+  const onContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+    // return false
+  }
+  const eventMousemove = (e: MouseEvent) => {
+    let _left = e.clientX - left - (eventDom.offsetWidth / 2);
+    let _top = e.clientY - top - (eventDom.offsetHeight / 2);
+    (eventDom as HTMLDivElement).style.left = `${_left}px`;
+    (eventDom as HTMLDivElement).style.top = `${_top}px`;
 
+    if (_left <= 0 || _top <= 0) {
+
+      window.removeEventListener('mouseup', eventMouseup)
+      window.removeEventListener('mousemove', eventMousemove)
+    }
+  }
   const MouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    // setIsMove(true)
-    // setIndex(Number((e.currentTarget as HTMLDivElement).dataset.index))
-    // console.log(1, Number((e.currentTarget as HTMLDivElement).dataset.index));
-    index = Number((e.currentTarget as HTMLDivElement).dataset.index)
-    // console.log(1.1, index);
+
+    document.oncontextmenu = function () {
+      return false;
+    }
+    if (e.button === 2) {
+      let { x, y } = canvasXy(e);
+      console.log(7,x);
+      
+      openToolMenu(e)
+      setXy({ x:x, y:y })
+
+      return
+    }
+    eventDom = e.currentTarget;
+    window.addEventListener('mouseup', eventMouseup)
+    window.addEventListener('mousemove', eventMousemove)
   }
-  // const MouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-  //   let index: number = Number((e.currentTarget as HTMLDivElement).dataset.index)
-
-  //   if (index !== undefined) {
-  //     let xy = canvasXy(e)
-
-  //     // centerArray[index].x = 100;
-  //     // centerArray[index].y = 100;
-  //     // console.log(e.currentTarget);
-
-  //     if (e.currentTarget) {
-  //       console.log(3, xy.x);
-
-  //       (e.currentTarget as any).style.left = `${xy.x}px`;
-  //       (e.currentTarget as any).style.top = `${xy.y}px`;
-
-  //     }
-  //     // e.target.style.top = xy.y
-  //     // console.log(centerArray[0].x = 100)
-
-  //   }
-
-  //   // if (isMove) {
-  //   //   setXy(canvasXy(e))
-  //   // }
-  // }
-  const MouseUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    // setComponentData(componentData)
-    // console.log();
-
-    setIsMove(false)
+  const openToolMenu = (e: React.MouseEvent) => {
+    setToolMenuShow(true)
   }
+
+  const deleteComponent = () => {
+
+    centerArray.pop()
+    setCenterArray([...centerArray])
+  }
+
+
   return (
     <div className='container'>
+
+      {
+        toolMenuShow &&
+        <ul className='tolo-menu' style={{ top: xy.y, left: xy.x }} >
+          <li>提升 </li>
+          <li>删除 </li>
+        </ul>
+      }
       {/* 组件列表 */}
       <div onDragStart={(e) => { dragstart(e) }} className='left'>
         {
           componentData.map((item, index) => {
-            return <div onMouseUp={MouseUp} className='box' draggable="true" data-index={index} key={index}>{item.label}</div>
+            return <div className='box' draggable="true" data-index={index} key={index}>{item.label}</div>
           })
         }
+        <div style={{ marginTop: '30px' }} onClick={deleteComponent}>撤回</div>
       </div>
 
       {/*  画布 */}
@@ -192,10 +194,10 @@ function Test() {
             let Component = item['component']
             return (
               <div data-index={index} className='component-container'
-                // onMouseMove={MouseMove}
+                // onMouseDown={onmousedown }
+                // onContextMenu={onContextMenu}
                 onMouseDown={MouseDown}
-                // onMouseUp={MouseUp}
-                style={{ left: item.x, top: item.y }} key={index} >
+                style={{ left: item.x, top: item.y, zIndex: index }} key={index} >
                 <h6>{item.x}</h6>
                 <Component key={index} src={require('../../imgs/login-bg.jpg')} ></Component>
               </div>
