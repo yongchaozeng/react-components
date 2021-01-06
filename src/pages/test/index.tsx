@@ -11,10 +11,12 @@ interface CanvasXY {
 
 
 let eventDom: HTMLDivElement;
+let rightEventDom: HTMLDivElement;
 let left: number;
 let top: number;
 function Test() {
   let [toolMenuShow, setToolMenuShow] = useState(false)
+  let [disXY, setDisXY] = useState({ x: 0, y: 0 })
   let [xy, setXy] = useState({ x: 0, y: 0 })
   let [componentData, setComponentData] = useState<any[]>([{ label: 'test' }])
   let [centerArray, setCenterArray] = useState<any[]>([])
@@ -120,6 +122,14 @@ function Test() {
     e.preventDefault()
   }
   const eventMouseup = (e: MouseEvent) => {
+    
+    // let _left = e.clientX - left - (eventDom.offsetWidth / 2);
+    // let _top = e.clientY - top - (eventDom.offsetHeight / 2);
+    // let index = Number(eventDom.dataset.index)
+
+    // centerArray[index].x = _left
+    // centerArray[index].y = _top
+    // setCenterArray([...centerArray])
     window.removeEventListener('mouseup', eventMouseup)
     window.removeEventListener('mousemove', eventMousemove)
   }
@@ -127,54 +137,97 @@ function Test() {
     // return false
   }
   const eventMousemove = (e: MouseEvent) => {
-    let _left = e.clientX - left - (eventDom.offsetWidth / 2);
-    let _top = e.clientY - top - (eventDom.offsetHeight / 2);
+    // console.log(left);
+    // console.log(9,e.pageX );
+    // console.log(10,e.clientX );
+    // console.log(10,eventDom.offsetLeft);
+
+    
+    // let _left = e.clientX ;
+    // let _top = e.clientY ;
+
+    let _left = e.clientX + disXY.x-left;
+    let _top = e.clientY + disXY.y-top;
+    console.log(8,_left);
+
+ 
     (eventDom as HTMLDivElement).style.left = `${_left}px`;
     (eventDom as HTMLDivElement).style.top = `${_top}px`;
 
-    if (_left <= 0 || _top <= 0) {
 
-      window.removeEventListener('mouseup', eventMouseup)
-      window.removeEventListener('mousemove', eventMousemove)
-    }
+
+    // 边界
+    // if (_left <= 0 || _top <= 0) {
+
+    //   window.removeEventListener('mouseup', eventMouseup)
+    //   window.removeEventListener('mousemove', eventMousemove)
+    // }
   }
   const MouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+   
 
-    document.oncontextmenu = function () {
-      return false;
-    }
     if (e.button === 2) {
-      let { x, y } = canvasXy(e);
+      rightEventDom = e.currentTarget;
+      document.oncontextmenu = function () {
+        return false;
+      }
+      openToolMenu(e)
+
+    } else {
+      
+      let x = e.clientX -left- e.currentTarget.offsetLeft;
+      let y = e.clientX -left- e.currentTarget.offsetLeft;
+      setDisXY({x,y})
       console.log(7,x);
       
-      openToolMenu(e)
-      setXy({ x:x, y:y })
-
-      return
+      
+      eventDom = e.currentTarget;
+      window.addEventListener('mouseup', eventMouseup)
+      window.addEventListener('mousemove', eventMousemove)
     }
-    eventDom = e.currentTarget;
-    window.addEventListener('mouseup', eventMouseup)
-    window.addEventListener('mousemove', eventMousemove)
+
+
   }
+  // 打开菜单
   const openToolMenu = (e: React.MouseEvent) => {
+    setXy({ x: e.clientX, y: e.clientY })
     setToolMenuShow(true)
+
+  }
+  // 选择菜单
+  const selectMenu = (e: React.MouseEvent) => {
+    debugger
+    let index = (e.target as HTMLLIElement).dataset.index
+    if (index === '0') {
+      changeZindex(e)
+    } else {
+      deleteComponent()
+    }
+    document.oncontextmenu = function () {
+      return true;
+    }
+    setToolMenuShow(false)
   }
 
+  const changeZindex = (e: React.MouseEvent) => {
+    let index = Number(rightEventDom.dataset.index)
+    let last = centerArray.splice(index, 1)
+    setCenterArray([...centerArray, last[0]])
+  }
   const deleteComponent = () => {
-
-    centerArray.pop()
+    let index = Number(rightEventDom.dataset.index)
+    let last = centerArray.splice(index, 1)
     setCenterArray([...centerArray])
   }
-
 
   return (
     <div className='container'>
 
       {
         toolMenuShow &&
-        <ul className='tolo-menu' style={{ top: xy.y, left: xy.x }} >
-          <li>提升 </li>
-          <li>删除 </li>
+        <ul className='tolo-menu' onClick={selectMenu} style={{ top: xy.y, left: xy.x }} >
+          <li data-index={0}>提升  </li>
+          <li data-index={1}>删除 </li>
         </ul>
       }
       {/* 组件列表 */}
@@ -194,11 +247,9 @@ function Test() {
             let Component = item['component']
             return (
               <div data-index={index} className='component-container'
-                // onMouseDown={onmousedown }
-                // onContextMenu={onContextMenu}
                 onMouseDown={MouseDown}
                 style={{ left: item.x, top: item.y, zIndex: index }} key={index} >
-                <h6>{item.x}</h6>
+            
                 <Component key={index} src={require('../../imgs/login-bg.jpg')} ></Component>
               </div>
             )
