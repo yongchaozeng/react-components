@@ -12,9 +12,12 @@ interface CanvasXY {
 
 let eventDom: HTMLDivElement;
 let rightEventDom: HTMLDivElement;
+let _x :number
+let _y:number
 let left: number;
 let top: number;
 function Test() {
+  const disXYRef = useRef({});
   let [toolMenuShow, setToolMenuShow] = useState(false)
   let [disXY, setDisXY] = useState({ x: 0, y: 0 })
   let [xy, setXy] = useState({ x: 0, y: 0 })
@@ -95,6 +98,11 @@ function Test() {
   }, [])
 
 
+  // useEffect(() => {
+  //   // 每次 更新 把值 复制给 modelStatusRef
+  //   disXYRef.current = disXY;
+  // }, [disXY]); // 依赖的值 等modelStatus 改变了 才出发里面的值
+
 
   const canvasXy: CanvasXY = (e) => {
     return { x: e.clientX - (e.currentTarget as HTMLElement).offsetLeft, y: e.clientY - (e.currentTarget as HTMLElement).offsetTop }
@@ -122,7 +130,7 @@ function Test() {
     e.preventDefault()
   }
   const eventMouseup = (e: MouseEvent) => {
-    
+
     // let _left = e.clientX - left - (eventDom.offsetWidth / 2);
     // let _top = e.clientY - top - (eventDom.offsetHeight / 2);
     // let index = Number(eventDom.dataset.index)
@@ -142,15 +150,18 @@ function Test() {
     // console.log(10,e.clientX );
     // console.log(10,eventDom.offsetLeft);
 
-    
+
     // let _left = e.clientX ;
     // let _top = e.clientY ;
 
-    let _left = e.clientX + disXY.x-left;
-    let _top = e.clientY + disXY.y-top;
-    console.log(8,_left);
+    let _left = e.clientX -_x - left;
+    let _top = e.clientY - _y - top;
+    console.log(8, _left);
 
- 
+    // console.log('x', _left);
+    // console.log('y', _top);
+
+
     (eventDom as HTMLDivElement).style.left = `${_left}px`;
     (eventDom as HTMLDivElement).style.top = `${_top}px`;
 
@@ -164,7 +175,7 @@ function Test() {
     // }
   }
   const MouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-   
+
 
     if (e.button === 2) {
       rightEventDom = e.currentTarget;
@@ -174,13 +185,21 @@ function Test() {
       openToolMenu(e)
 
     } else {
-      
-      let x = e.clientX -left- e.currentTarget.offsetLeft;
-      let y = e.clientX -left- e.currentTarget.offsetLeft;
-      setDisXY({x,y})
-      console.log(7,x);
-      
-      
+
+       _x = e.clientX - left - e.currentTarget.offsetLeft;
+       _y = e.clientY - top - e.currentTarget.offsetTop;
+
+      // setDisXY(Object.assign({ x: x, y: y }))
+      // let _disXY = disXYRef .current;
+      // console.log(6, disXY);
+      // console.log(7, x);
+      // console.log(8, _disXY);
+
+
+      // console.log(7, x);
+      // console.log(8, y);
+
+
       eventDom = e.currentTarget;
       window.addEventListener('mouseup', eventMouseup)
       window.addEventListener('mousemove', eventMousemove)
@@ -216,7 +235,7 @@ function Test() {
   }
   const deleteComponent = () => {
     let index = Number(rightEventDom.dataset.index)
-    let last = centerArray.splice(index, 1)
+    centerArray.splice(index, 1)
     setCenterArray([...centerArray])
   }
 
@@ -249,7 +268,7 @@ function Test() {
               <div data-index={index} className='component-container'
                 onMouseDown={MouseDown}
                 style={{ left: item.x, top: item.y, zIndex: index }} key={index} >
-            
+
                 <Component key={index} src={require('../../imgs/login-bg.jpg')} ></Component>
               </div>
             )
