@@ -12,8 +12,8 @@ interface CanvasXY {
 
 let eventDom: HTMLDivElement;
 let rightEventDom: HTMLDivElement;
-let _x :number
-let _y:number
+let _x: number
+let _y: number
 let left: number;
 let top: number;
 function Test() {
@@ -154,7 +154,7 @@ function Test() {
     // let _left = e.clientX ;
     // let _top = e.clientY ;
 
-    let _left = e.clientX -_x - left;
+    let _left = e.clientX - _x - left;
     let _top = e.clientY - _y - top;
     console.log(8, _left);
 
@@ -162,9 +162,14 @@ function Test() {
     // console.log('y', _top);
 
 
-    (eventDom as HTMLDivElement).style.left = `${_left}px`;
-    (eventDom as HTMLDivElement).style.top = `${_top}px`;
+    // (eventDom as HTMLDivElement).style.left = `${_left}px`;
+    // (eventDom as HTMLDivElement).style.top = `${_top}px`;
 
+    let index = Number(eventDom.dataset.index)
+
+    centerArray[index].x = _left
+    centerArray[index].y = _top
+    setCenterArray([...centerArray])
 
 
     // 边界
@@ -186,18 +191,10 @@ function Test() {
 
     } else {
 
-       _x = e.clientX - left - e.currentTarget.offsetLeft;
-       _y = e.clientY - top - e.currentTarget.offsetTop;
-
-      // setDisXY(Object.assign({ x: x, y: y }))
-      // let _disXY = disXYRef .current;
-      // console.log(6, disXY);
-      // console.log(7, x);
-      // console.log(8, _disXY);
+      _x = e.clientX - left - e.currentTarget.offsetLeft;
+      _y = e.clientY - top - e.currentTarget.offsetTop;
 
 
-      // console.log(7, x);
-      // console.log(8, y);
 
 
       eventDom = e.currentTarget;
