@@ -1,88 +1,92 @@
 let isMount = true
-let workInProgressHook = null // 函数中具体执行的hook
+let workInProgressHook = null //定位当前hook
 
-// 每个函数组件对应一个fiber
+// 当前组件filber
 const filber = {
-    stateNode: App,
-    memoizedState: null   // 保存hooks
+    state: null,//存储num值
+    hook: null,// 链表存储hook
 }
 
-function useState(ininiaState) {
-    let hook;
+const useState = (initState) => {
+    let hook = null
     if (isMount) {
+
         hook = {
-            memoizedState: ininiaState,
+            state: initState,
             next: null,
             queue: {
                 pending: null
-            },
+            }
         }
-        if (!filber.memoizedState) {
-            filber.memoizedState = hook
+        if (!filber.hook) {
+            filber.hook = hook
         } else {
-            workInProgressHook.next = hook
+            filber.hook.next = hook
         }
-        workInProgressHook = hook
-    } else {
 
+        workInProgressHook = hook
+        filber.state = hook.state
+
+    } else {
         hook = workInProgressHook
-        workInProgressHook = workInProgressHook.next
+        filber.state = hook.state
+        if (hook.next) {
+        debugger
+            
+            workInProgressHook = hook.next
+
+        }
     }
 
-    let baseState = hook.memoizedState
+    let baseState = filber.state
     if (hook.queue.pending) {
+
         let firstUpdate = hook.queue.pending.next
         do {
-            const action = firstUpdate.action
-            baseState = action(baseState)
+            let changeState = firstUpdate.hook
+            baseState = changeState(baseState)
             firstUpdate = firstUpdate.next
+
         } while (firstUpdate !== hook.queue.pending.next)
-
-        hook.queue.pending = null
     }
-    hook.memoizedState = baseState
-    return [baseState, dispatchAction.bind(null, hook.queue)]
-}
 
-function dispatchAction(queue, action, ) {
-    const update = {
-        action,
+    return [baseState, updateState.bind(null, hook.queue)]
+}
+function updateState(queue, changeState) {
+    isMount = false
+    let update = {
+        hook: changeState,
         next: null
     }
-    if (queue.pending === null) {
+
+    if (!queue.pending) {
         update.next = update
     } else {
         update.next = queue.pending.next
         queue.pending.next = update
     }
-    queue.pending = update;
-
+    queue.pending = update
+    workInProgressHook = filber.hook
     schedule()
 }
-
-// 调度
 function schedule() {
-    workInProgressHook = filber.memoizedState //复位
-    let app = filber.stateNode()
-    isMount = false
-    return app
+    return App()
 }
 
 function App() {
-    const [num, updateNum] = useState(0)
-    const [num1, updateNum1] = useState(10)
-
-    console.log(`${isMount ? 'mount' : 'update'} num: `, num);
-
-
+    let [num, setNum] = useState(0)
+    let [num1, setNum1] = useState(10)
+    console.log(7, num)
+    console.log(8, num1)
     return {
         onClick() {
-            console.log('test',num);
-            updateNum(num => num + 1)
-            console.log('test1',num);
-            
+
+            setNum((item) => item + 1)
+            setNum((item) => item + 2)
+            setNum((item) => item + 3)
+            setNum1((item) => item + 10)
         }
     }
 }
-
 window.app = schedule()
+
