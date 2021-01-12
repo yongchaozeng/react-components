@@ -1,19 +1,29 @@
 import React from './React.js'
-console.log(123);
 
-// let App = () => {
-//     return (
-//         <div>
-//             <h1>title</h1>
-//             <p>副标题</p>
-//             <ul>
-//                 <li>列表1</li>
-//                 <li>列表2</li>
-//                 <li>列表3</li>
-//                 <li>列表4</li>
-//             </ul>
-//         </div>
-//     );
-// }
+let App = React.createElement(
+    'div',
+    {
+        id: 'test1', className: 'box'
+    },
+    React.createElement(
+        'h1',
+        {
+            id: 'title',
+        },
+        'Title',
+    ),
+    React.createElement(
+        'a',
+        {
+            href: 'xxx',
+        },
+        'Jump',
+    ),
+    React.createElement(
+        'section',
+        null,
+        React.createElement('p', null, 'Article'),
+    ),
+);
 
-// React.renderDom = (App(), document.querySelector('#app'))
+React.render(App, document.querySelector('#app'))
