@@ -45,8 +45,6 @@ export default React
 function workLoop(deadline) {
     while (nextUnitOfWork && deadline.timeRemaining() > 1) {
         nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
-
-
     }
     requestIdleCallback(workLoop);
 
