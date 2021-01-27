@@ -1,0 +1,7 @@
+熟练掌握JavaScript、Typescript、Css、Es
+熟悉React技术栈和Vue技术栈，能快速运用开发
+熟练使用redux，react-router并掌握实现原理，阅读过源码
+熟悉vuex，vue-router，并使用过nuxt，服务端渲染
+掌握常见设计模式，能在项目中写出高质量可维护代码
+熟悉webpack，有一定的工程化理解
+了解flutter开发经验，有flutter开发经验
