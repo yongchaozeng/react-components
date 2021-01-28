@@ -4,22 +4,31 @@ import ReduxThunk from 'redux-thunk';
 const ADD_TO_CART = 'ADD_TO_CART';
 export const UPDATE_CART = 'UPDATE_CART';
 export const DELETE_FROM_CART = 'DELETE_FROM_CART';
-type ActionType = 'ADD_TO_CART' | 'UPDATE_CART' | 'DELETE_FROM_CART'
 
 interface goodsCart {
-  <T, K, P>(product: T, quantity?: K, unitCost?: P): Action<T, K, P>
+  (product: string, quantity: number, unitCost: number): action
+}
+interface deleteGoodsCart {
+  (product: string): { type: string, payload: { product: string } }
+}
+interface action {
+  type: string
+  payload: { product: string, quantity: number, unitCost: number }
+}
+interface action1 {
+  type: string
+  payload: { product: string, }
 }
 
-interface Action<T = string, K = number, P = number> {
-  type: ActionType,
-  payload: { product: T, quantity?: K, unitCost?: P }
+interface dispatch {
+  (type: string,
+    payload: { product: string, quantity: number, unitCost: number }): any
 }
 
-interface Action1<T = string> {
-  type: ActionType,
-  payload: { product: T }
-}
+interface asyncAction {
 
+  (dispatch: dispatch): void
+}
 
 const addToCart: goodsCart = function (product, quantity, unitCost) {
   return {
@@ -39,7 +48,7 @@ const updateCart: goodsCart = function (product, quantity, unitCost) {
   }
 }
 
-const deleteFromCart: goodsCart = function (product) {
+const deleteFromCart: deleteGoodsCart = function (product) {
   return {
     type: DELETE_FROM_CART,
     payload: {
@@ -65,7 +74,7 @@ const initialState = {
 interface hanshu {
   (dispatch: any): void
 }
-const cartReducer = function (state = initialState, action: Action | Action1) {
+const cartReducer = function (state = initialState, action: action | action1 | any) {
   switch (action.type) {
     case ADD_TO_CART: {
       return {
@@ -92,7 +101,7 @@ const cartReducer = function (state = initialState, action: Action | Action1) {
   }
 }
 
-const productsReducer = function (state = [], action: Action) {
+const productsReducer = function (state = [], action: action) {
   return state;
 }
 
@@ -118,12 +127,12 @@ store.dispatch(updateCart('Flour 1kg', 3, 660))
 store.dispatch(deleteFromCart('Juice 2L'))
 
 
-// const asyncAction: asyncAction = function (dispatch: dispatch) {
-//   setTimeout(() => {
-// dispatch(updateCart('Coffee 500gm', 7, 255))
-//   }, 2000)
-// }
-// store.dispatch(asyncAction);
+const asyncAction: asyncAction = function (dispatch: dispatch) {
+  setTimeout(() => {
+    // dispatch(updateCart('Coffee 500gm', 7, 255))
+  }, 2000)
+}
+store.dispatch(asyncAction);
 
 // unsubscribe()
 
@@ -139,54 +148,6 @@ const ad: Ad = function (num) {
   return num
 }
 console.log(7, ad(3));
-type AA = {
-  (name: string, age?: number): void
-}
-
-let a: AA = function (name, age) {
-  return {
-    type: name,
-    payload: age
-  }
-}
-
-console.log(77, a('77'));
 
 
 
-enum Sex {
-  nan = '男', nv = '女', yaoguai = '妖怪'
-}
-type Person = {
-  name: string
-  sex: Sex
-  age: number
-}
-
-type PersonX<T> = { [T in keyof Person]?: Person[T] }
-type NewPerson = PersonX<Person> & { phone: number }
-
-let zhang3: Person = { name: '张三', sex: Sex['nan'], age: 12 }
-let li4: NewPerson = { name: '张三', sex: Sex['nan'], phone: 180818 }
-
-type P = [number, string, boolean];
-type Q = Date;    
-
-// type R = [in P];
-
-// let dd:R = [ 1,'2',false]
-// console.log(dd);
-
-// let dd:P = [1,'2',false]
-// type getArr<T, U> = {
-//   (a: T, b: U): [T, U]
-// }
-// let getArr: getArr<T, U> = function (a, b) {
-//   return [a, b]
-// }
-
-// console.log(getArr(1, 2));
-// let b = "lucifer"; // 我们没有给 a 声明类型， a 被推导为string
-// b.toFixed(); // Property 'toFixed' does not exist on type 'string'.
-// b.includes("1"); // ok
-// b = 1;
