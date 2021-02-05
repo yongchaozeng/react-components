@@ -1,5 +1,5 @@
 
-
+import isPlainObject from './utils/isPlainObject'
 type Reducer<S, A> = (state: S, action: A) => S
 
 
@@ -8,33 +8,45 @@ interface Action<T = any> {
 }
 
 
-function createStore<S, A extends Action,>(reducer: Reducer<S, A>, preloadedState?: S) {
+function createStore<S, A extends Action,>(reducer: Reducer<S, A>, preloadedState?: S,) {
 
     let currentReducer = reducer
     let currentState = preloadedState as S
-    let currentListeners:any[] = []
-
-
+    let currentListeners: any[] = []
 
     function dispatch(action: A) {
+        if (!isPlainObject(action)) {
+            throw new Error(
+                'Actions must be plain objects. ' +
+                'Use custom middleware for async actions.'
+            )
+        }
 
-        currentState = currentReducer(currentState, action)
+        if (typeof action.type === 'undefined') {
+            throw new Error('请传入正确的type值')
+        }
 
-        if(currentListeners && currentListeners.length>0){
-            currentListeners.forEach((cb)=>{
-                
+        try {
+            currentState = currentReducer(currentState, action)
+        } catch (e) {
+
+        }
+
+        if (currentListeners && currentListeners.length > 0) {
+            currentListeners.forEach((cb) => {
                 cb()
             })
         }
-        // if(action && typeof action === 'function'){
 
-        // }
     }
     function getState() {
-        return currentState
+        return currentState as S
     }
-    function subscribe(callback: ()=>void) {
+    function subscribe(callback: () => void) {
         currentListeners.push(callback)
+        return function () {
+            currentListeners = []
+        }
     }
 
     dispatch({ type: 'asdasd' } as A)
@@ -47,6 +59,5 @@ function createStore<S, A extends Action,>(reducer: Reducer<S, A>, preloadedStat
 }
 
 export default createStore
-
 
 

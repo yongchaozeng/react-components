@@ -1,7 +1,9 @@
 import { createStore } from "redux";
 // import { createStore } from "./redux";
 import ReduxThunk from 'redux-thunk';
-
+import exercise6 from './exercise/exercise6'
+console.log(666,exercise6)
+// exercise()
 const ADD_TO_CART = 'ADD_TO_CART';
 export const UPDATE_CART = 'UPDATE_CART';
 export const DELETE_FROM_CART = 'DELETE_FROM_CART';
@@ -26,6 +28,17 @@ const addToCart: goodsCart = function (product, quantity, unitCost) {
   return {
     type: ADD_TO_CART,
     payload: { product, quantity, unitCost }
+  }
+}
+
+const updateCart: goodsCart = function (product, quantity, unitCost) {
+  return {
+    type: UPDATE_CART,
+    payload: {
+      product,
+      quantity,
+      unitCost
+    }
   }
 }
 
@@ -74,13 +87,21 @@ const cartReducer = function (state = initialState, action: any) {
 
 
 let store = createStore(cartReducer);
-store.subscribe(function () {
+let unSubScribe = store.subscribe(function () {
   console.log("initial state: ", store.getState());
 })
 
 // console.log(store.getState());
 store.dispatch(addToCart('Coffee 500gm', 1, 250));
+
+store.dispatch(updateCart('Coffee 500gm', 3, 660))
+
+
+store.dispatch(addToCart('香蕉 1斤', 2, 700));
 // console.log(store.getState());
+
+unSubScribe()
+
 
 
 
