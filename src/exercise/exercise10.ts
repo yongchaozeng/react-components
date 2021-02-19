@@ -65,13 +65,20 @@ export type ApiResponse<T> = (
 // type CallbackApi = {
 //   <T>(cb):Promise<T>
 // }
+type CallbaclPromisify<T> = {
+  (callback: (callback: ApiResponse<T>) => void): void
+}
+type Propromisify<T> = {
+  (): Promise<T>
+}
 
-export function promisify(fn: any):any {
+
+
+export function promisify<T>(fn: CallbaclPromisify<T>): Propromisify<T> {
   return () => {
     return new Promise((resolve, reject) => {
-      fn((res: any) => {
+      fn((res) => {
         if (res.status === 'success') {
-          console.log(64);
           resolve(res.data)
         } else if (res.status === 'error') {
           reject(res.error)
@@ -108,15 +115,27 @@ const oldApi = {
   }
 };
 
-export const api = {
-  requestAdmins: promisify(oldApi.requestAdmins),
-  requestUsers: promisify(oldApi.requestUsers),
-  requestCurrentServerTime: promisify(oldApi.requestCurrentServerTime),
-  requestCoffeeMachineQueueLength: promisify(oldApi.requestCoffeeMachineQueueLength)
-};
+
+
+
+
+type oldApiObj<T> = { [K in keyof T]: CallbaclPromisify<T[K]> };
+
+type PromisifiedObject<T> = { [K in keyof T]: Propromisify<T[K]> };
+
+export const api = promisifyAll(oldApi)
+
+function promisifyAll<T>(oldApiObj: oldApiObj<T>): PromisifiedObject<T> {
+  let obj: Partial<PromisifiedObject<T>> = {}
+  for (let key in oldApiObj) {
+    obj[key] = promisify(oldApiObj[key])
+  }
+  return obj as PromisifiedObject<T>;
+}
+
+
 
 function logPerson(person: Person) {
-  console.log(9);
 
   console.log(
     ` - ${person.name}, ${person.age}, ${person.type === 'admin' ? person.role : person.occupation}`

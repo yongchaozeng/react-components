@@ -22,7 +22,8 @@
     "jsx": "react"
   },
   "include": [
-    "src"
+    "src",
+    "src/exercise/node_modules/index.d.ts"
   ],
   "extends": "./paths.json"
 }

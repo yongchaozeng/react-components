@@ -1,8 +1,8 @@
 import { createStore } from "redux";
 // import { createStore } from "./redux";
 import ReduxThunk from 'redux-thunk';
-import exercise10 from './exercise/exercise10'
-console.log(666,exercise10)
+import exercise12 from './exercise/exercise12'
+console.log(666,exercise12)
 // exercise()
 const ADD_TO_CART = 'ADD_TO_CART';
 export const UPDATE_CART = 'UPDATE_CART';
