@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='qrcode'></div>
+    <a onclick='haha()'>打印</a>
+    <h1>
+        ------
+    </h1>
+    <!-- <div id="printBox" ></div> -->
+    <div>1231231231</div>
+
+    <!-- <img src="./171f52aa3403a4b6.png" alt=""> -->
+    <!-- <script src="./算法图解.js"></script> -->
+    <!-- <script src="./算法图解最短路.js"></script> -->
+    <!-- <script src="./hooks.js"></script> -->
+    <script src='qrcode.js'></script>
+
+    <script>
+        let newPageDom = document.createElement('div')
+        let array = [
+            'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+            '124346456474dfgwerwerwereewerwerqerqrqweqweq',
+            '124346456474dfgw345aa8908fgfghfghfghfghfghfgaa',
+            'aafasadgasdaasassddafaaaa4dasdfgw345aa8908fgfa4dfgwerwerwe',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+            'aa"./算法图解最短路.js"a',
+
+        ]
+        let b = [
+            'a',
+            'c',
+            'd',
+            'a',
+        ]
+        console.log();
+
+        b.forEach(item => {
+            let qrcode = new QRCode("qrcode", {
+
+            });
+            qrcode.makeCode(item)
+
+ 
+
+            let el = document.createElement('div')
+            let p = document.createElement('p')
+
+            p.innerText = `p${item}`
+            el.innerText = item
+            newPageDom.appendChild(p)
+            Array.from(qrcode._el.children).forEach((qrdom) => {
+                newPageDom.appendChild(qrdom)
+            })
+            newPageDom.appendChild(el)
+ 
+
+
+        })
+
+       
+
+        function haha() {
+            let newPage = window.open()
+            console.log(newPage);
+            newPage.document.body.appendChild(newPageDom)
+    
+        }
+
+
+        // var qrcode = new QRCode("qrcode", {
+        //     text: "http://www.runoob.com",
+        //     width: 128,
+        //     height: 128,
+        //     colorDark: "#000000",
+        //     colorLight: "#ffffff",
+        //     correctLevel: QRCode.CorrectLevel.H
+        // });
+        // var qrcode = new QRCode("qrcode", {
+        //     text: "http://www.haha.com",
+        //     width: 128,
+        //     height: 128,
+        //     colorDark: "#000000",
+        //     colorLight: "#ffffff",
+        //     correctLevel: QRCode.CorrectLevel.H
+        // });
+    </script>
+</body>
+
+</html>
