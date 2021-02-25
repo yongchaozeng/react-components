@@ -13,6 +13,272 @@
 
 
 
+        // let a = [1,2,3]
+        // console.log(typeof Array.prototype);
+        // console.log(Array.prototype  );
+        // console.log(  Object.prototype);
+
+        // function Test() {
+
+        // }
+        // Text.prototype =  {
+        //     a:'1'
+        // }
+        // let t1 = new Test()
+        // console.log(t1.__proto__.__proto__ === Object.prototype );
+        // console.log(Test.__proto__ === Function.prototype);
+        // console.log(Object.__proto__ === Function.prototype);
+        // console.log(Function.__proto__ === Function.prototype);
+        // console.log(Object.constructor);
+
+        // function fn() {
+
+        // }
+
+        // console.log(Function.__proto__.__proto__);
+        // console.log();
+        // console.log(Object);
+
+        // let a =   fn.__proto__.constructor
+        // console.log(a);
+
+        // console.log(foo);
+
+
+        // var foo = 1
+
+        // var foo = function () {
+
+        //     console.log('foo2');
+
+        // }
+        // function foo() {
+        //     console.log('foo3');
+        // }
+
+
+        // console.log(foo);
+
+        // foo();
+
+        function fun3() {
+            console.log('fun3')
+        }
+
+        function fun2() {
+            fun3();
+        }
+
+        function fun1() {
+            fun2();
+        }
+
+        fun1();
+
+        /**
+            global = []
+            globalStack.push(fun1)
+            globalStack.push(fun2)
+            globalStack.push(fun3)
+            globalStack.pop()
+            globalStack.pop()
+            globalStack.pop()
+
+        
+        */
+
+        var scope = "global scope";
+        function checkscope() {
+            var scope = "local scope";
+            function f() {
+                return scope;
+            }
+            return f();
+        }
+        checkscope();
+
+
+        /**
+            global = []
+            global.push(checkscope)
+            global.push(f)
+            global.pop()
+            global.pop()
+
+        */
+
+        var scope = "global scope";
+        function checkscope() {
+            var scope = "local scope";
+            function f() {
+                return scope;
+            }
+            return f;
+        }
+        checkscope()();
+        /**
+           global = []
+           global.push(checkscope)
+              global.pop()
+           global.push(f)
+
+            global.pop()
+
+       */
+
+        // function foo(a) {
+        //     var b = 2;
+        //     function c() { }
+        //     var d = function () { };
+
+        //     b = 3;
+
+        // }
+
+        // foo(1);
+
+        function foo1() {
+            console.log(t1);
+            var t1 = 1;
+        }
+
+        foo1();
+
+        /*
+        AO = {
+           arguments:{
+               0:1,
+               length:0
+           }
+           b:undefined,
+           c:reference to function c (){},
+           d:  undefined
+            
+       }
+
+        AO = {
+           arguments:{
+               0:1
+               length:0
+           }
+           b:3,
+           c:reference to function c (){},
+           d:  reference to Functionexpression 'd'
+            
+       }
+       
+       */
+
+
+
+
+
+        let i = 1;
+        for (; i;) {
+            console.log(i);
+            i++
+            if (i == 10) {
+                i = null
+            }
+        }
+
+        function fun1(a, b, c) {
+            console.log(a === arguments[0]);
+
+            console.log(arguments);
+
+        }
+        fun1(2, 3)
+        console.log(fun1.length);
+
+
+        let todolist = {
+            learn: ['项目1', '项目2'],
+            work: ['flutter', 'js'],
+            yuouxi: ['lol', 'dota'],
+            [Symbol.iterator]: function () {
+                let array = [...todolist.learn, ...todolist.work, ...todolist.yuouxi]
+                let index = 0
+                return {
+                    next: function () {
+                        index++
+                        return {
+                            value: array[index],
+                            done: index === array.length,
+                        }
+                    }
+                }
+            }
+        }
+        for (const item of todolist) {
+            console.log(item);
+
+        }
+
+        Array.from(todolist).forEach(item => {
+            console.log(item);
+
+        })
+        function mapT() {
+            let array = [1, 2, 3]
+            for (let index = 0; index < array.length; index++) {
+                const element = array[index];
+                if (element === 2) {
+                    return
+                }
+                console.log(element);
+
+
+            }
+        }
+        mapT()
+        let o1 = '扎色'
+        function obj1(obj) {
+            obj = '张三'
+            console.log(obj);
+
+        }
+        obj1(o1)
+        console.log(o1);
+
+
+        function Car(name) {
+            this.name = name
+        }
+        Car.prototype.print = function () {
+            return this.name
+        }
+        // new实现
+        function newObj(obj, name) {
+            let newObj = {}
+            return function (...ars) {
+                let result = obj.apply(newObj, ars)
+                newObj.__proto__ = obj.prototype
+                if (typeof result === 'object' && obj !== null) {
+                    return result
+                }
+                return newObj
+            }
+        }
+
+        let b1 = new Car('张三')
+        let newCar = newObj(Car)
+        let car = newCar('张三')
+        console.log(car.__proto__.constructor);
+
+        function printPerson() {
+            console.log(`姓名:${this.name},年龄:${this.age}`)
+        }
+    
+
+
+
+        // console.log(7, car.__proto__.constructor);
+
+
+
+
+
     </script>
 </body>
 

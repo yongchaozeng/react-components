@@ -1,16 +1,19 @@
-ASCII1字节  UNICODE2字节 utf-8 1-5字节
+IE Edge chrome safari firefox opera
+trident EdgeHTML webkit blink webkit gecko presto blink 
+
+
+ASCII1字节  UNICODE2字节 utf-8 1-4可变长字节
 
 Array.prototype
 instanceof
-RegExp
-parseInt
+RegExp 
 
 
 string
 属性
 length
 方法
-toLocaleUpperCase
+toLocaleUpperCase 
 toLowerCase 
 toUpperCase
 charAt
