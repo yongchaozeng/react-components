@@ -77,4 +77,9 @@ Object.fromEntries()：把键值对列表转换为一个对象，是Object.entri
 Object.is()：判断两个值是否是相同的值。
 
 
+dom.style.width 只能获取内联
+dom.currentStyle.width 获取最终渲染 只ie支持
+window.getComputedStyle(dom).width ie9到11 获取最终渲染
+dom.getBoundingClientRect().width   获取最终渲染，并且dom到浏览器边框的距离
+
 

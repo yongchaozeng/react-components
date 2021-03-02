@@ -117,9 +117,30 @@ let c1 = printPerson.mybind1(p1)
 let c2 = printPerson.myBind(p1)
 let c3 = printPerson.bind(p1)
 // let c2 = printPerson.myBind(p1)
-console.log(1,c1.prototype);
-console.log(2,c2.prototype);
-console.log(3,c3.prototype);
+console.log(1, c1.prototype);
+console.log(2, c2.prototype);
+console.log(3, c3.prototype);
+
+function Bar(name) {
+    this.name = name
+}
+
+Bar.prototype.print = function () {
+    console.log(6, this.name);
+
+}
+function Ex(params) {
+
+}
+Ex.prototype = Bar.prototype;
+Ex.prototype.name = 'haixia';
+let e1 = new Ex()
+console.log(e1.name);
+
+// let bar1 = new Bar('zs')
+// bar1.print();
+// console.log(bar1.__proto__.constructor);
+
 
 // c1()
 // c2(1,2,3)

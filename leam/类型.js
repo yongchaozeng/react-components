@@ -46,13 +46,15 @@ function Bar(){
  
 function Foo(){}
 function Bar(){}
-Bar.prototype = new Bar()
+Bar.prototype = new Foo()
+
 // 组合继承   call方法已经有父属性，之后prototype也会在获取父
 function Foo(){}
 function Bar(){
     Foo.call(this)
 }
 Bar.prototype = new Foo() 
+
 // 寄生组合继承   
 function Foo(){}
 function Bar(){
