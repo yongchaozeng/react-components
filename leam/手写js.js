@@ -62,7 +62,6 @@ Function.prototype.myApply = function (self) {
 
 Function.prototype.myBind = function (self) {
 
-
     if (!typeof this === 'function') {
         throw Error('只能使用function调用')
     }
@@ -111,38 +110,62 @@ Function.prototype.mybind1 = function (thisArg) {
 }
 
 
-// printPerson.apply(p1, null)
-// printPerson.myApply(p1, null)
 let c1 = printPerson.mybind1(p1)
 let c2 = printPerson.myBind(p1)
 let c3 = printPerson.bind(p1)
-// let c2 = printPerson.myBind(p1)
-console.log(1, c1.prototype);
-console.log(2, c2.prototype);
-console.log(3, c3.prototype);
 
-function Bar(name) {
-    this.name = name
+// 防抖  点击后重置上次操作
+function shake() {
+    let timeId;
+    return function (callback, t = 1000) {
+        timeId && clearTimeout(timeId)
+        timeId = setTimeout(() => {
+            callback()
+        }, t)
+    }
+}
+// 节流  一段时间内只执行一次操作
+function jieliu(callback, t = 1000) {
+    let isCallback = true;
+    return function () {
+        if (!isCallback) return
+        isCallback = false
+        setTimeout(() => {
+            isCallback = true
+            callback()
+        }, t)
+    }
+}
+let onShakehaha = jieliu(haha)
+function haha() {
+    console.log('有点好笑');
+
 }
 
-Bar.prototype.print = function () {
-    console.log(6, this.name);
+function myInstanceof(o1, o2) {
+    let i = 0
+    let proto = o1.__proto__
+    while (i < 10) {
+        debugger
+        i++
+        if (proto === null) return false
+        if (proto === o2.prototype) {
+            return true
+        }
+        proto = proto.__proto__
 
+
+    }
+} 
+console.log('instanceof实现', myInstanceof(b1, Array));
+
+function myNew(params) {
+    
 }
-function Ex(params) {
-
-}
-Ex.prototype = Bar.prototype;
-Ex.prototype.name = 'haixia';
-let e1 = new Ex()
-console.log(e1.name);
-
-// let bar1 = new Bar('zs')
-// bar1.print();
-// console.log(bar1.__proto__.constructor);
 
 
-// c1()
-// c2(1,2,3)
+
+
+
 
 
