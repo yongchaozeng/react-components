@@ -63,6 +63,8 @@ function Bar(){
 Bar.prototype = Foo.prototype   
 Bar.prototype.constructor  = Bar
 
+//堆（heap）和栈（stack）中来加以区分。其中，堆里存放着一些对象。而栈中则存放着一些基础类型变量以及对象的指针
+
 //https://www.jianshu.com/p/504bde348956
 //https://juejin.cn/post/6844904048961781774
 //https://juejin.cn/post/6844903566285471751

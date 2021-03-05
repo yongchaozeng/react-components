@@ -169,7 +169,7 @@
             });
             qrcode.makeCode(item)
 
- 
+
 
             let el = document.createElement('div')
             let p = document.createElement('p')
@@ -181,18 +181,23 @@
                 newPageDom.appendChild(qrdom)
             })
             newPageDom.appendChild(el)
- 
+
 
 
         })
 
-       
+
 
         function haha() {
-            let newPage = window.open()
-            console.log(newPage);
-            newPage.document.body.appendChild(newPageDom)
-    
+            // let newPage = window.open()
+            // console.log(newPageDom);
+
+            document.body.innerHTML = `<h1>test1</h1>
+            ${newPageDom.outerHTML}
+            `
+            // appendChild(newPageDom)
+            // newPage.document.body.appendChild(newPageDom)
+
         }
 
 

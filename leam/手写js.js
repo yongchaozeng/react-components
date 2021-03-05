@@ -145,8 +145,7 @@ function haha() {
 function myInstanceof(o1, o2) {
     let i = 0
     let proto = o1.__proto__
-    while (i < 10) {
-        debugger
+    while (i < 10) { 
         i++
         if (proto === null) return false
         if (proto === o2.prototype) {

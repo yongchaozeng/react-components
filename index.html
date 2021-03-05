@@ -10,6 +10,26 @@
 
 <body>
     <div onclick='onShake()'>点击措施</div>
+    <!-- <p id="p1">p1</p> -->
+    <p id="p2">p2</p>
+    <script>
+        let p1 = document.createElement('p')
+
+        let d1 = document.createElement('div')
+        d1.innerHTML = 'div嘻嘻哈哈'
+        console.log(d1);
+
+        let html = `这是一个新内容`
+        console.log(`<div>7788</div>`);
+
+        p1.innerHTML = `<div class='test1'>
+            <h1>这很重要</h1>
+            ${d1}
+            </div`
+        document.body.appendChild(p1)
+
+
+    </script>
     <script>
 
 
@@ -267,14 +287,14 @@
         let car = newCar('张三')
         console.log(car.__proto__.constructor);
 
-    
+
         // printPerson.myApply(p1,)
   // console.log(7, car.__proto__.constructor);
     </script>
 
     <script src="./leam/手写js.js"></script>
     <script src='./leam/继承.js'>
-    
+
     </script>
 </body>
 

@@ -164,10 +164,6 @@ const createDom = (vDom) => {
         }
     } else {
         dom = document.createTextNode(vDom.props.nodeValue)
-
     }
-
-
-
     return dom
 }
