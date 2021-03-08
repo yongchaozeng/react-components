@@ -114,6 +114,61 @@ let c1 = printPerson.mybind1(p1)
 let c2 = printPerson.myBind(p1)
 let c3 = printPerson.bind(p1)
 
+
+console.log(a);
+
+function a() {}
+var a = 1
+// 暗示全局变量  imply global variable
+// i
+// AO  函数上下文 activation  object
+// c1()
+// c2(1,2,3)
+// 2 1  function a(){}  function(){}
+// 2 1  function a(){}  function(){}
+// 1寻找形参和变量声明    2实参赋值  3 函数声明，赋值 4执行
+function test(a) {
+    console.log(a)
+    var a = 1
+    console.log(a);
+
+    function a() {}
+    console.log(a);
+    var b = function () {}
+    console.log(b);
+
+    function d() {}
+}
+// test(2)
+
+
+function test1(a, b) {
+    console.log(a);
+    c = 0
+    var c
+    a = 5
+    b = 6
+    console.log(ggg);
+    console.log(b);
+
+    function b() {}
+
+    function d() {}
+    console.log(b);
+}
+ 
+// test1(8, 9)
+
+
+// 1寻找形参和变量声明    2实参赋值  3 函数声明，4赋值     8   6 6
+// AO = {
+//  a:undefined ->8 ->5
+//  b:undefined ->9 ->function b(){}=>6
+//  c:undefined ->0
+//
+// }
+// 全局 global object 1 变量声明  2函数声明 4赋值 
+
 // 防抖  点击后重置上次操作
 function shake() {
     let timeId;
