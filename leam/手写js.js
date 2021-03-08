@@ -8,10 +8,10 @@ function printPerson(test1, test2) {
 
 //     console.log(`姓名:${this.name},年龄:${this.age}--${test1}--${test2}`)
 // }
-let p1 = {
-    name: '尼古拉斯凯奇',
-    age: 33
-}
+// let p1 = {
+//     name: '尼古拉斯凯奇',
+//     age: 33
+// }
 // let s = Symbol('call')
 Function.prototype.myCall = function (self) {
     if (typeof this !== 'function') {

@@ -28,4 +28,6 @@ offsetWidth
 client
 scroll
 
-
+重排和重绘
+重绘：改变元素外观 
+重排：改变元素大小位置
