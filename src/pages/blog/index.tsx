@@ -1,104 +1,119 @@
-import React, { FC } from 'react'
-
+import React, { Component, ComponentClass } from 'react'
 import './index.less'
 
-interface Blog {
+let isClear = false
+
+type Chess = 'X' | 'O' | null
+type BlogProps = {
 
 }
-interface Person {
-    name: string
-    age: number,
-    hobby: string
+
+type BlogState = {
+    isX: boolean
+    selectLog: Array<Array<Chess> | null>
+    squeres: Array<Chess>
 }
 
-
-
-
-const Blog: FC<Blog> = () => {
-
-    let trim = (e: any, str: string) => {
-        return str.replace(/^\s+|\s+$/g, '')
-    }
-    let o1 = {
-        name: '张三',
-        age: 12,
-        sun: {
-            name: '小三',
-            age: 1,
-        },
-        array: [1],
-        print() {
-            console.log(this.name);
+class Blog extends Component<BlogProps, BlogState> {
+    constructor(props: BlogProps) {
+        super(props)
+        this.state = {
+            isX: true,
+            squeres: Array(9).fill(null),
+            selectLog: [[]],
         }
     }
-    let clone = (target: any) => {
-        if (typeof target === 'object') {
-            let cloneTarget: any = Array.isArray(target) ? [] : {};
-            for (const key in target) {
-                cloneTarget[key] = clone(target[key]);
-            }
-            return cloneTarget;
-        } else {
-            return target;
-        }
-    }
-    let o2 = clone(o1)
-    o2.sun.test = 1
-    o2.array.push(2)
-    // console.log(o2);
-    // console.log(o1);
 
-    const curry = (fn: any, ...args: any) => {
-        console.log('22,', args);
+    cb(i: number) {
+        if (this.state.squeres[i] != null) return
+        let array = this.state.squeres.concat()
+        array[i] = this.state.isX ? 'X' : 'O';
+        let selectLog;
 
-        // debugger
-        // 函数的参数个数可以直接通过函数数的.length属性来访问
-        fn(...args)
-        return (...args: any) => {
+        if (isClear) {
+            selectLog = this.state.selectLog.slice(0, this.state.squeres.filter(item => item != null).length + 1)
+            isClear = false
+        }else{
+            selectLog = this.state.selectLog
+        } 
+        selectLog.push(array)
+     
 
-        }
-        // return args.length >= fn.length // 这个判断很关键！！！
-        //     // 传入的参数大于等于原始函数fn的参数个数，则直接执行该函数
-        //     ? fn(...args)
-        //     /**
-        //      * 传入的参数小于原始函数fn的参数个数时
-        //      * 则继续对当前函数进行柯里化，返回一个接受所有参数（当前参数和剩余参数） 的函数
-        //     */
-        //     : (..._args: any) => {};
+        this.setState(
+            { squeres: array, selectLog: selectLog, isX: !this.state.isX }
+        )
     }
 
-    function add1(x: any, y: any, z: any) {
-        return x + y + z;
+    change(squeres: any, index: number) {
+        isClear = true
+        let isX = index % 2 === 0 ? true : false
+        this.setState(
+            { ...this.state, squeres, isX }
+        )
     }
-    const add = curry(add1);
-    // console.log(add);
 
-    // console.log(add(1, 2, 3));
-    // console.log(add(1, 2, 3));
-    // console.log(add(1)(2)(3));
-    // console.log(add(1, 2)(3));
-    // console.log(add(1)(2, 3));
-    const arr2 = [0, 1, 2, [[[3, 4]]]];
-    let ot = {}
-    console.log(new Set([1, ot, 2, ot, 1, 3, 4]));
-
-    
-
-
-
-    // console.log(arr2.flat(2));
-
-    return <>
-        <header className='header'>
-            <div className='header-logo' onClick={(e) => { trim(e, '   test test1  ') }}  >
-                YC冲冲冲
+    renderSquare(i: number) {
+        return (
+            <div onClick={() => { this.cb(i) }}>
+                <Square value={this.state.squeres[i]} > </Square>
             </div>
-            <div className='header-right'>
-                <div className='header-search'></div>
-                <div className='header-nav-list'></div>
-                <div className='header-user'></div>
-            </div>
-        </header>
-    </>
+        )
+    }
+
+    render() {
+        return (
+            <>
+                <div>
+                    <div className="board-row">
+                        {this.renderSquare(0)}
+                        {this.renderSquare(1)}
+                        {this.renderSquare(2)}
+                    </div>
+                    <div className="board-row">
+                        {this.renderSquare(3)}
+                        {this.renderSquare(4)}
+                        {this.renderSquare(5)}
+                    </div>
+                    <div className="board-row">
+                        {this.renderSquare(6)}
+                        {this.renderSquare(7)}
+                        {this.renderSquare(8)}
+                    </div>
+                </div>
+                <h1>{`当前选手${this.state.isX ? 'X' : 'O'}`}</h1>
+                <ul>
+                    {
+                        this.state.selectLog.map((item, index) => {
+                            if (index === 0) {
+                                return <li onClick={() => { this.change(item, index) }} key={index}>{'开始'}</li>
+                            }
+                            return <li onClick={() => { this.change(item, index) }} key={index}>{`move ${index}步`}</li>
+                        })
+                    }
+                </ul>
+            </>
+
+        )
+    }
+}
+type SquareProps = {
+    value: string | null
+}
+type SquareState = {
+    value: string | null
+}
+class Square extends Component<SquareProps, SquareState> {
+    constructor(props: SquareProps) {
+        super(props)
+        this.state = {
+            value: null
+        }
+    }
+
+    render() {
+        return (
+            <div> {this.props.value}</div>
+        )
+    }
 }
 export default Blog
