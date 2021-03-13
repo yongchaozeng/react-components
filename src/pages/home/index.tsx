@@ -63,10 +63,10 @@ const Home: FC<Home> = (props) => {
             <div className='home-sider'>
                 <Menu >
                     <SubItem title='组件'>
-                        <Item onClick={(e) => { run(e, 'te') }} >图片裁剪</Item>
+                        <Item onClick={(e:any) => { run(e, 'te') }} >图片裁剪</Item>
                         <Item onClick={toTest}>文件上传</Item>
-                        <Item onClick={(e) => { haha(e) }}>i18N</Item>
-                        <Item onClick={(e) => { xx(e) }}>Excel</Item>
+                        <Item onClick={(e:any) => { haha(e) }}>i18N</Item>
+                        <Item onClick={(e:any) => { xx(e) }}>Excel</Item>
                     </SubItem>
                     <Item>错误信息</Item>
                     <Item>通知信息</Item>
