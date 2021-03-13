@@ -87,7 +87,7 @@ Function.prototype.mybind1 = function (thisArg) {
         // 保存 this
         self = this,
         // 构建一个干净的函数，用于保存原函数的原型
-        nop = function () { },
+        nop = function () {},
         // 绑定的函数
         bound = function () {
             // this instanceof nop, 判断是否使用 new 来调用 bound
@@ -156,7 +156,7 @@ function test1(a, b) {
     function d() {}
     console.log(b);
 }
- 
+
 // test1(8, 9)
 
 
@@ -192,6 +192,7 @@ function jieliu(callback, t = 1000) {
     }
 }
 let onShakehaha = jieliu(haha)
+
 function haha() {
     console.log('有点好笑');
 
@@ -200,7 +201,7 @@ function haha() {
 function myInstanceof(o1, o2) {
     let i = 0
     let proto = o1.__proto__
-    while (i < 10) { 
+    while (i < 10) {
         i++
         if (proto === null) return false
         if (proto === o2.prototype) {
@@ -210,16 +211,20 @@ function myInstanceof(o1, o2) {
 
 
     }
-} 
+}
 console.log('instanceof实现', myInstanceof(b1, Array));
 
-function myNew(params) {
-    
+function Foo(params) {
+
 }
 
-
-
-
-
-
-
+function myNew(fn) {
+    let ars = Array.prototype.slice.call(arguments)
+    let o = {}
+    let result = fn.apply(o, ars)
+    o.__proto__ = fn.prototype
+    if (result != null && typeof result === 'object') {
+        return result
+    }
+    return o
+}

@@ -1,4 +1,4 @@
-// string number boolean undefined null object symbol
+// string number boolean undefined null object symbol bigint
 function test() { }
 let a = Symbol('23')
 console.log(typeof true); //boolean
