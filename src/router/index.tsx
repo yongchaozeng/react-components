@@ -23,10 +23,8 @@ const Router: React.FC = () => {
                         </Home>
                     )
                 }} />
-
                 <Route exact path='*' component={Login} />
             </Switch>
-
         </BrowserRouter>
     )
 

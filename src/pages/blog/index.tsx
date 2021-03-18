@@ -1,119 +1,96 @@
-import React, { Component, ComponentClass } from 'react'
+import React, { FC, useRef, useEffect } from 'react'
+
 import './index.less'
 
-let isClear = false
-
-type Chess = 'X' | 'O' | null
-type BlogProps = {
+interface Blog {
 
 }
 
-type BlogState = {
-    isX: boolean
-    selectLog: Array<Array<Chess> | null>
-    squeres: Array<Chess>
-}
 
-class Blog extends Component<BlogProps, BlogState> {
-    constructor(props: BlogProps) {
-        super(props)
-        this.state = {
-            isX: true,
-            squeres: Array(9).fill(null),
-            selectLog: [[]],
-        }
+
+
+
+const Blog: FC<Blog> = () => {
+
+    interface Person {
+        name: string
+        age: number,
+        hobby: string
     }
 
-    cb(i: number) {
-        if (this.state.squeres[i] != null) return
-        let array = this.state.squeres.concat()
-        array[i] = this.state.isX ? 'X' : 'O';
-        let selectLog;
 
-        if (isClear) {
-            selectLog = this.state.selectLog.slice(0, this.state.squeres.filter(item => item != null).length + 1)
-            isClear = false
-        }else{
-            selectLog = this.state.selectLog
-        } 
-        selectLog.push(array)
-     
+    // let t1 : keyof Person =   "name" | "age" | "hobby"
+    // let t2 : k in t1=   "name" | "age" | "hobby"
+    type Partial1<T> = { [k in keyof T]?: T[k] }
+    type Required1<T> = { [k in keyof T]-?: T[k] }
+    type Mutable1<T> = { -readonly [k in keyof T]: T[k] }
+    type Readonly1<T> = { +readonly [k in keyof T]: T[k] }
+    type Record1<T extends string | number | symbol, K> = { [q in T]: K }
+    type Pick1<T, K extends keyof T> = { [q in K]: T[q] }
+    type Exclude1<T, K> = T extends K ? never : T
+    type Extract1<T, K> = T extends K ? T : never
+    // type Omit1<T, K> = { [q in keyof T extends K ? never : keyof T]: T[q] }
+    type Omit1<T, K> = { [q in Exclude1<keyof T, K>]: T[q] }
+    // let a: Record<'name', Person> = {
+    //     name: 'sd',
+    //     age: 12,
+    // }
 
-        this.setState(
-            { squeres: array, selectLog: selectLog, isX: !this.state.isX }
-        )
+    let s: Extract1<'1' | '2' | '3', '2'> = '2'
+    let o: Omit1<Person, 'hobby'> = {
+        name: '阿萨德',
+        age: 1,
     }
 
-    change(squeres: any, index: number) {
-        isClear = true
-        let isX = index % 2 === 0 ? true : false
-        this.setState(
-            { ...this.state, squeres, isX }
-        )
-    }
 
-    renderSquare(i: number) {
-        return (
-            <div onClick={() => { this.cb(i) }}>
-                <Square value={this.state.squeres[i]} > </Square>
+    // type petsGroup = 'dog' | 'cat' | 'fish';
+    // interface IPetInfo {
+    //     name: string,
+    //     age: number,
+    // }
+    // let a: Person = {
+    //     name: '只是',
+    //     age: 12,
+    //     hobby: 'my',
+    // }
+    // let c1: Record1<petsGroup, Person> = {
+    //     dog: {
+    //         name: '只是',
+    //         age: 12,
+    //         hobby: 'my',
+    //     },
+    //     cat: {
+    //         name: '只是',
+    //         age: 12,
+    //         hobby: 'my',
+    //     },
+    //     fish: {
+    //         name: '只是',
+    //         age: 12,
+    //         hobby: 'my',
+    //     },
+    // }
+
+
+
+
+
+
+
+
+
+
+    return <>
+        <header className='header'>
+            <div className='header-logo'  >
+                YC冲冲冲
             </div>
-        )
-    }
-
-    render() {
-        return (
-            <>
-                <div>
-                    <div className="board-row">
-                        {this.renderSquare(0)}
-                        {this.renderSquare(1)}
-                        {this.renderSquare(2)}
-                    </div>
-                    <div className="board-row">
-                        {this.renderSquare(3)}
-                        {this.renderSquare(4)}
-                        {this.renderSquare(5)}
-                    </div>
-                    <div className="board-row">
-                        {this.renderSquare(6)}
-                        {this.renderSquare(7)}
-                        {this.renderSquare(8)}
-                    </div>
-                </div>
-                <h1>{`当前选手${this.state.isX ? 'X' : 'O'}`}</h1>
-                <ul>
-                    {
-                        this.state.selectLog.map((item, index) => {
-                            if (index === 0) {
-                                return <li onClick={() => { this.change(item, index) }} key={index}>{'开始'}</li>
-                            }
-                            return <li onClick={() => { this.change(item, index) }} key={index}>{`move ${index}步`}</li>
-                        })
-                    }
-                </ul>
-            </>
-
-        )
-    }
-}
-type SquareProps = {
-    value: string | null
-}
-type SquareState = {
-    value: string | null
-}
-class Square extends Component<SquareProps, SquareState> {
-    constructor(props: SquareProps) {
-        super(props)
-        this.state = {
-            value: null
-        }
-    }
-
-    render() {
-        return (
-            <div> {this.props.value}</div>
-        )
-    }
+            <div className='header-right'>
+                <div className='header-search'></div>
+                <div className='header-nav-list'></div>
+                <div className='header-user'></div>
+            </div>
+        </header>
+    </>
 }
 export default Blog
