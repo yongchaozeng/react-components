@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+        超过(2^53)-1和-(2^53)-1的就无法精确，可以用bigint
+        数字尾+n等于bigint 
+        控制台显示绿色
+          
+        */
+        console.log(Number.MAX_SAFE_INTEGER + 1);//最大安全数
+        console.log(Number.MIN_SAFE_INTEGER);//最小安全数
+        console.log(11n > 12);
+
+        25 / 10;      // → 2.5
+        25n / 10n;    // → 2n
+
+
+        10n + 20n;    // → 30n
+        10n - 20n;    // → -10n
+        // +10n;         // → TypeError: Cannot convert a BigInt value to a number
+        -10n;         // → -10n
+        10n * 20n;    // → 200n
+        20n / 10n;    // → 2n
+        23n % 10n;    // → 3n
+
+        console.log(10n == 10);    // → true
+        console.log(10n === 10);    // → false
+
+        console.log(typeof 10n);    // → bigint
+        console.log(typeof 10);
+    </script>
+</body>
+
+</html>
