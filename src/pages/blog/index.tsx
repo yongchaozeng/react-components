@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect } from 'react'
+import React, { FC,} from 'react'
 
 import './index.less'
 
@@ -36,11 +36,11 @@ const Blog: FC<Blog> = () => {
     //     age: 12,
     // }
 
-    let s: Extract1<'1' | '2' | '3', '2'> = '2'
-    let o: Omit1<Person, 'hobby'> = {
-        name: '阿萨德',
-        age: 1,
-    }
+    // let s: Extract1<'1' | '2' | '3', '2'> = '2'
+    // let o: Omit1<Person, 'hobby'> = {
+    //     name: '阿萨德',
+    //     age: 1,
+    // }
 
 
     // type petsGroup = 'dog' | 'cat' | 'fish';
