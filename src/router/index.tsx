@@ -4,7 +4,9 @@ import Login from '../pages/login'
 import App from '../pages/App'
 import Test from '../pages/test'
 import Blog from '@/pages/blog'
-import Home from '../pages/home'
+import Lifetime from '@/pages/lifetime'
+import Home from '@/pages/home'
+import TodoList from '@/pages/todolist'
 // import Test from '@/page/test'
 
 const Router: React.FC = () => {
@@ -12,8 +14,10 @@ const Router: React.FC = () => {
     return (
         <BrowserRouter>
             <Switch>
+                <Route exact path='/lifetime' component={Lifetime} />
                 <Route exact path='/blog' component={Blog} />
                 <Route exact path='/Login' component={Login} />
+                <Route exact path='/todoList' component={TodoList} />
                 <Route path='/home' render={() => {
                     return (
                         <Home>
@@ -23,10 +27,8 @@ const Router: React.FC = () => {
                         </Home>
                     )
                 }} />
-
                 <Route exact path='*' component={Login} />
             </Switch>
-
         </BrowserRouter>
     )
 
